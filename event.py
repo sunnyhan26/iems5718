@@ -1,5 +1,4 @@
 import webapp2
-import event
 from google.appengine.api import users
 
 # import module for templates

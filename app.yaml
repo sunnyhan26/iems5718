@@ -23,7 +23,7 @@ handlers:
   static_dir: css
 
 - url: /event/.*
-  script: event.py
+  script: event.app
 
 libraries:
 - name: webapp2
