@@ -1,0 +1,32 @@
+h1{
+	text-align:center;
+}
+body{
+	
+}
+
+#btn_div{
+	position:absolute;
+	width:170px;
+	left: 45%;
+	bottom:8%;
+}
+#join_table{
+	
+	width:100%;
+}
+#join_td{
+	border:1px solid black;
+	width:60%;
+	valign:top;
+}
+#join_table th, td{
+	text-align:center;
+}
+#date_time{
+
+	border:0;
+}
+#whole_table{
+	margin-top:5%;
+}
