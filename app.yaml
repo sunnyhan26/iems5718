@@ -11,8 +11,8 @@ handlers:
 
 #  a static file mapping
 - url: /start
-  static_files: form.html
-  upload: form.html
+  static_files: Web_project.html
+  upload: Web_project.html
 
 # a static directory mapping
 - url: /js
@@ -24,6 +24,12 @@ handlers:
 
 - url: /event/.*
   script: event.app
+
+- url: /template
+  static_dir: template
+
+- url: /image
+  static_dir: image
 
 libraries:
 - name: webapp2

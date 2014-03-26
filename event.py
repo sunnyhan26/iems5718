@@ -1,6 +1,8 @@
 import webapp2
+import event_func
 from google.appengine.api import users
 
+import os
 # import module for templates
 import jinja2
 # for logging message to server log
@@ -19,13 +21,12 @@ class SubmitEvent(webapp2.RequestHandler):
 		location = self.request.get('location')
 		time = self.request.get('time')
 
-	addEvent(ownerid, name, date, location, time)
-	self.response.write('Event saved successfully!')
+		event_func.addEvent(1, ownerid, name, location, time)
+		self.response.write('Event saved successfully!')
 
 class ViewEvent(webapp2.RequestHandler):
 	def get(self):
 		eventid = self.request.get('eventid')
-		if(
 		template_values = {
 			'user': user,
 		}
@@ -35,9 +36,9 @@ class ViewEvent(webapp2.RequestHandler):
 class EditEvent(webapp2.RequestHandler):
 	def get(self):
 		template_values = {
-			'user': user,
+			'user': 'user',
 		}
-		template = JINJA_ENVIRONMENT.get_template('path/to/template')
+		template = JINJA_ENVIRONMENT.get_template('/template/Initial.html')
 		self.response.write(template.rendered(template_values))
         
 app = webapp2.WSGIApplication([    
