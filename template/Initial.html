@@ -49,6 +49,13 @@
     		<div id="map-canvas"></div>
     		<br/>
     		<br/>
+    		        <table class="table" id="commentTable">
+      			
+      			<tbody>
+        		
+        
+      			</tbody>
+    		        </table>
 			<table>
 			<div class="form-group">
     			<label for="exampleInputEmail1">Make some comments here.</label>
@@ -58,15 +65,14 @@
   			<button type="button" class="btn btn-success" onclick="submitComment()">Submit</button>
 			&nbsp;&nbsp;&nbsp;
 			<button type="button" class="btn btn-success" onclick="{location.href='Web_project.html'}">Back to main page</button>
+			<!--
+			{$ if is Viewer %}
+			<button type="button" class="btn btn-success" onclick="joinEvent()">Join this Event</button>
+			{% endif %}
+			-->
 			<br/>
 			<br/>
-  			<table class="table" id="commentTable">
-      			
-      			<tbody>
-        		
-        
-      			</tbody>
-    		</table>
+  			
 			
 		</form>
 
