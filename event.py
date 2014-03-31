@@ -17,11 +17,14 @@ class SubmitEvent(webapp2.RequestHandler):
 	def post(self):
 		ownerid = users.get_current_user().user_id()
 		name = self.request.get('name')
-		date = self.request.get('date')
+		my1Time = self.request.get('my1Time')
+		my2Time = self.request.get('my2Time')
+		my3Time = self.request.get('my3Time')
 		location = self.request.get('location')
-		time = self.request.get('time')
+		coordinate = self.request.get('coordinate')
 
-		event_func.addEvent(1, ownerid, name, location, time)
+		event_func.addEvent(ownerid, name, my1Time, my2Time, my3Time,
+			location, coordinate)
 		self.response.write('Event saved successfully!')
 
 class ViewEvent(webapp2.RequestHandler):

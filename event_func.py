@@ -3,21 +3,28 @@ from google.appengine.ext import ndb
 class Event(ndb.Model):
 	ownerid = ndb.StringProperty()
 	name = ndb.StringProperty()
-	location = ndb.GeoPtProperty()
-	time = ndb.DateProperty()
+	my1Time = ndb.DateTimeProperty()
+	my2Time = ndb.DateTimeProperty()
+	my3Time = ndb.DateTimeProperty()
+	location = ndb.StringProperty()
+	coordinate = ndb.GeoPtProperty()
 
 def permitted():
 	return
 
-def addEvent(eventid, ownerid, name, location, time):
+def addEvent(ownerid, name, my1Time, my2Time, my3Time, location,
+	coordinate, eventid):
 	if permitted():
 		# how to verify it is really a eventid?
-		if eventid is NULL:
-			event = Event(ownerid=ownerid, name=name, location=location,
-				time=time)
+		if eventid is None:
+			event = Event(ownerid=ownerid, name=name, my1Time=my1Time,
+				my2Time=my2Time, my3Time=my3Time, location=location,
+				coordinate=coordinate)
 		else:
-			event = Event(key=Key('Event', eventid), ownerid=ownerid,
-				name=name, location=location, time=time)
+			mykey=Key('Event', eventid)
+			event = Event(ownerid=ownerid, name=name, my1Time=my1Time,
+				my2Time=my2Time, my3Time=my3Time, location=location,
+				coordinate=coordinate, key=mykey)
 		event.put()
 
 def getEvent(event_id):
