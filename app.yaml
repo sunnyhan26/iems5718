@@ -25,8 +25,8 @@ handlers:
 - url: /event/.*
   script: event.app
 
-- url: /template
-  static_dir: template
+- url: /home/.*
+  script: home.app
 
 - url: /image
   static_dir: image
