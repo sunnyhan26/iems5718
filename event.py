@@ -34,7 +34,7 @@ class ViewEvent(webapp2.RequestHandler):
 			'user': user,
 		}
 		template = JINJA_ENVIRONMENT.get_template('path/to/template')
-		self.response.write(template.rendered(template_values))
+		self.response.write(template.render(template_values))
 
 class EditEvent(webapp2.RequestHandler):
 	def get(self):
@@ -42,7 +42,7 @@ class EditEvent(webapp2.RequestHandler):
 			'user': 'user',
 		}
 		template = JINJA_ENVIRONMENT.get_template('/template/Initial.html')
-		self.response.write(template.rendered(template_values))
+		self.response.write(template.render(template_values))
         
 app = webapp2.WSGIApplication([    
     ('/event/edit', EditEvent),  
