@@ -7,16 +7,22 @@ function initialize() {
   };
   var map = new google.maps.Map(document.getElementById('map-canvas'),
     mapOptions);
+  
+  var marker = new google.maps.Marker({
+    map: map,
+    position: new google.maps.LatLng(22.413533,114.21031),
+    draggable: true
+  });
 
   var input = /** @type {HTMLInputElement} */(
       document.getElementById('pac-input'));
 
   var types = document.getElementById('type-selector');
   map.controls[google.maps.ControlPosition.TOP_LEFT].push(input);
-  map.controls[google.maps.ControlPosition.TOP_LEFT].push(types);
 
   var autocomplete = new google.maps.places.Autocomplete(input);
   autocomplete.bindTo('bounds', map);
+  autocomplete.setTypes([]);
 
   var infowindow = new google.maps.InfoWindow();
   var marker = new google.maps.Marker({
@@ -39,15 +45,9 @@ function initialize() {
       map.setCenter(place.geometry.location);
       map.setZoom(17);  // Why 17? Because it looks good.
     }
-    marker.setIcon(/** @type {google.maps.Icon} */({
-      url: place.icon,
-      size: new google.maps.Size(71, 71),
-      origin: new google.maps.Point(0, 0),
-      anchor: new google.maps.Point(17, 34),
-      scaledSize: new google.maps.Size(35, 35)
-    }));
     marker.setPosition(place.geometry.location);
     marker.setVisible(true);
+    coordinate=place.geometry.location;
 
     var address = '';
     if (place.address_components) {
@@ -61,19 +61,6 @@ function initialize() {
     infowindow.setContent('<div><strong>' + place.name + '</strong><br>' + address);
     infowindow.open(map, marker);
   });
-
-  // Sets a listener on a radio button to change the filter type on Places
-  // Autocomplete.
-  function setupClickListener(id, types) {
-    var radioButton = document.getElementById(id);
-    google.maps.event.addDomListener(radioButton, 'click', function() {
-      autocomplete.setTypes(types);
-    });
-  }
-
-  setupClickListener('changetype-all', []);
-  //setupClickListener('changetype-establishment', ['establishment']);
-  //setupClickListener('changetype-geocode', ['geocode']);
 }
 
 google.maps.event.addDomListener(window, 'load', initialize);
@@ -109,6 +96,23 @@ function submitComment(){
 	var comment=$('#commentContent').val();
 	$('#commentTable').append('<tr><td>'+comment+'</td><td>WANG WEI</td></tr>');
 	$('#commentTable tr:last').after('<tr></tr>');
+}
+
+function submitForm(){
+  if($('#input-loc')===''){
+        alert("location cannot be null!");
+    }
+    else
+    {
+       $.ajax({url:'/event/submit',
+    type:'POST',
+    data: {name:$("#input-name").val(), my1Time:$("#my1Div").val(), my2Time:$("#my2Div").val(), my3Time:$("#my3Div").val(), location:$("#input-loc").val(), coordinate:coordinate}  // simulated server delay
+}).done(function (bal) {
+    alert(bal);
+}).fail(function (jqXHR, textStatus) {
+    alert("Request failed: " + textStatus);
+});
+    }
 }
 
 
