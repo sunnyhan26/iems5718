@@ -5,13 +5,17 @@
     <meta charset="utf-8">
   	<link rel="stylesheet" href="/css/bootstrap.css" type="text/css"/>  
   	<link rel="stylesheet" href="/css/Initial.css" type="text/css" />
-    <title>Initial an event</title>
-    <script type="text/javascript" src="/js/jquery.js"></script>
-    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCbYzvg0aGCPVxWr7x7ou13ObTbq-roTiA&sensor=false&libraries=places"></script>
-	<script type="text/javascript" src="/js/Initial.js"></script>
+      <title>Initial an event</title>
+      <script type="text/javascript" src="/js/jquery.js"></script>
+      <script type="text/javascript" src="/js/initial.js"></script>
+      <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>	
+      <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCbYzvg0aGCPVxWr7x7ou13ObTbq-roTiA&sensor=false&libraries=places"></script>
+    
+    
     
   </head>
   <body>
+      
   	
   	<h1 id="title">Initial an Event</h1>
     	<form role="form" id="table">
@@ -36,26 +40,19 @@
   			
   			<div class="form-group">
     			<label for="exampleInputEmail1">Set the location</label>
-    			<input type="text" class="form-control" placeholder="Enter event's location"/>
   			</div>
     
-			<input id="pac-input" class="controls" type="text"
-      			placeholder="Enter a location"/>
-			<div id="type-selector"  class="controls">
-      			<input type="radio" name="type" id="changetype-all" checked="checked">
-      			<label for="changetype-all">All</label>
-
-    		</div>
-    		<div id="map-canvas"></div>
-    		<br/>
-    		<br/>
+			<input id="pac-input" class="controls" type="text" placeholder="Enter a location"/>
+    		        <div id="map-canvas"></div>
+    		        <br/>
+    		        <br/>
 			<table>
 			<div class="form-group">
     			<label for="exampleInputEmail1">Make some comments here.</label>
     			<input type="text" id="commentContent" class="form-control" placeholder="Enter comments"/>
   			</div>
   			</table>
-  			<button type="button" class="btn btn-success" onclick="submitComment()">Submit</button>
+  			<button type="button" class="btn btn-success" id="submitEvent">Submit the Event</button>
 			&nbsp;&nbsp;&nbsp;
 			<button type="button" class="btn btn-success" onclick="{location.href='/home'}">Back to main page</button>
 			<br/>
@@ -71,7 +68,8 @@
 		</form>
 
 		
-		
-
+      
+      
+      
   </body>
 </html>
