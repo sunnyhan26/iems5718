@@ -25,11 +25,11 @@ handlers:
 - url: /event/.*
   script: event.app
 
-- url: /home/.*
+- url: /home.*
   script: home.app
 
-- url: /image
-  static_dir: image
+- url: /images
+  static_dir: images
 
 libraries:
 - name: webapp2

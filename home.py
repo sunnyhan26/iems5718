@@ -21,5 +21,7 @@ class HomePage(webapp2.RequestHandler):
 		self.response.write(template.render(template_values))
         
 app = webapp2.WSGIApplication([
-    ('/home/start', HomePage)
+    ('/home', HomePage),
+    ('/home/joinedeventlist', HomePage),
+    ('/home/myeventlist', HomePage)
     ], debug=True)
