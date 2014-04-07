@@ -5,8 +5,9 @@ class Comment(ndb.Model):
 	content = ndb.TextProperty()
 	time = ndb.DateTimeProperty(auto_now_add=True)
 
-def addComment(user, content, time):
-	comment = Comment(user=user, content, time)
+def addComment(eventid, content, time):
+	comment = Comment(content, time)
 	comment.put()
 
-def getCommentList():
+def getCommentList(eventid, startcid, commentno):
+	pass
