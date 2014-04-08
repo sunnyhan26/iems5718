@@ -1,5 +1,6 @@
 var count=1;
 var coordinate='';
+var time=["","",""];
 
 function initialize() {
   var mapOptions = {
@@ -98,6 +99,7 @@ function setTime() {
  	divIdName="my"+count+"Div";  
  	
   	$('#timeContent').append(' <div id='+divIdName+'>'+content+'<a href="#" onclick="deleteTime(\'' + divIdName + '\')">   Delete</a></div>');
+    time[(count-1)]=content;
   	count++;
   	var flag=count-min;
   	if(flag==4)
@@ -118,7 +120,7 @@ var submitForm=function (){
     else{
        $.ajax({url:'/event/submit',
     type:'POST',
-    data: {name:$("#input-name").val(), my1Time:$("#my1Div").val(), my2Time:$("#my2Div").val(), my3Time:$("#my3Div").val(), location:$("#pac-input").val(), coordinate:coordinate}  // simulated server delay
+    data: {name:$("#input-name").val(), my1Time:time[0], my2Time:time[1], my3Time:time[2], location:$("#pac-input").val(), coordinate:coordinate}  // simulated server delay
 }).done(function (bal) {
     alert(bal);
 }).fail(function (jqXHR, textStatus) {
