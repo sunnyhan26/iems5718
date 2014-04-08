@@ -19,10 +19,25 @@ class HomePage(webapp2.RequestHandler):
 		}
 		template = JINJA_ENVIRONMENT.get_template('/template/mainPage.html')
 		self.response.write(template.render(template_values))
+
+class JoinedEventPage(webapp2.RequestHandler):
+	def get(self):
+		template_values = {
+		}
+		template = JINJA_ENVIRONMENT.get_template('/template/joined.html')
+		self.response.write(template.render(template_values))
+
+class MyEventPage(webapp2.RequestHandler):
+	def get(self):
+		template_values = {
+		}
+		template = JINJA_ENVIRONMENT.get_template('/template/myEvent.html')
+		self.response.write(template.render(template_values))
+
         
 app = webapp2.WSGIApplication([
     ('/', HomePage),
     ('/home', HomePage),
-    ('/home/joinedeventlist', HomePage),
-    ('/home/myeventlist', HomePage)
+    ('/home/joinedeventlist', JoinedEventPage),
+    ('/home/myeventlist', MyEventPage)
     ], debug=True)
