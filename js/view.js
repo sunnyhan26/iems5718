@@ -105,17 +105,17 @@ function setTime() {
   	
 }
 
-var SubmitComment=function (){
+function submitComment() {
 	event.preventDefault();
 	var comment=$('#commentContent').val();
 	$.ajax({
-    					url: '/comments/add', 
+    				url: '/comments/add', 
  						type: "POST",
  						data: {
  							comment:$("#commentContent").val(),
  		
  						}
-					});
+	});
 	//$('#commentTable').append('<tr><td>'+comment+'</td><td>WANG WEI</td></tr>');
 	//$('#commentTable tr:last').after('<tr></tr>');
 };
