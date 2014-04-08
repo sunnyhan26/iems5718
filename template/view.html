@@ -45,6 +45,18 @@
       			placeholder="Enter a location"/>
     		
     	<div id="map-canvas"></div>
+      <script>
+      var mapOptions = {
+        center: new google.maps.LatLng(22.413533,114.21031),
+        zoom: 17
+      };
+      var map = new google.maps.Map(document.getElementById('map-canvas'),mapOptions);
+      var marker = new google.maps.Marker({
+        map: map,
+        position: new google.maps.LatLng(22.413533,114.21031),
+        draggable: true
+  });
+        </script>
     	
     		<br/>
     		<br/>
