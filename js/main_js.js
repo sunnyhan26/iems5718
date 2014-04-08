@@ -28,7 +28,7 @@ setTimeout("GetClock()", 1000);
 }
 window.onload=GetClock;
 
-
+newDiv.innerHTML = 'Element Number has been added! <a href=\'#\' onclick=\'deleteTime('+divIdName+')\'>Remove the div "'+divIdName+'"</a>';
 
 
 

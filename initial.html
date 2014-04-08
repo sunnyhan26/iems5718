@@ -21,6 +21,11 @@
   			</div>
 			<br/>
 			<div class="form-group">
+    			<label for="exampleInputEmail1">Set the event's description</label>
+    			<input type="text" class="form-control" placeholder="Enter event's name"/>
+  			</div>
+  			<br/>
+			<div class="form-group">
     			<label for="exampleInputEmail1">Set the time</label>
     			<form>
 					<input type="date"  id="selector"  name="user_date"/>
@@ -36,11 +41,16 @@
   			
   			<div class="form-group">
     			<label for="exampleInputEmail1">Set the location</label>
-    			<input type="text" class="form-control" placeholder="Enter event's location" id="input-loc"/>
+    			<input type="text" class="form-control" placeholder="Enter event's location"/>
   			</div>
     
 			<input id="pac-input" class="controls" type="text"
       			placeholder="Enter a location"/>
+			<div id="type-selector"  class="controls">
+      			<input type="radio" name="type" id="changetype-all" checked="checked">
+      			<label for="changetype-all">All</label>
+
+    		</div>
     		<div id="map-canvas"></div>
     		<br/>
     		<br/>
@@ -50,9 +60,9 @@
     			<input type="text" id="commentContent" class="form-control" placeholder="Enter comments"/>
   			</div>
   			</table>
-  			<button type="button" class="btn btn-success" onclick="submitForm()">Submit</button>
+  			<button type="button" class="btn btn-success" onclick="submitComment()">Submit</button>
 			&nbsp;&nbsp;&nbsp;
-			<button type="button" class="btn btn-success" onclick="{location.href='Web_project.html'}">Back to main page</button>
+			<button type="button" class="btn btn-success" onclick="{location.href='/home'}">Back to main page</button>
 			<br/>
 			<br/>
   			<table class="table" id="commentTable">
