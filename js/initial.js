@@ -8,13 +8,8 @@ function initialize() {
   };
   var map = new google.maps.Map(document.getElementById('map-canvas'),
     mapOptions);
-<<<<<<< HEAD:js/Initial.js
-  
-  var marker = new google.maps.Marker({
-=======
  
  var marker = new google.maps.Marker({
->>>>>>> b9b347100a2a5ebc40d454bb1be04c4729f7546b:js/initial.js
     map: map,
     position: new google.maps.LatLng(22.413533,114.21031),
     draggable: true
@@ -25,10 +20,7 @@ function initialize() {
 
   //var types = document.getElementById('type-selector');
   map.controls[google.maps.ControlPosition.TOP_LEFT].push(input);
-<<<<<<< HEAD:js/Initial.js
-=======
   //map.controls[google.maps.ControlPosition.TOP_LEFT].push(types);
->>>>>>> b9b347100a2a5ebc40d454bb1be04c4729f7546b:js/initial.js
 
   var autocomplete = new google.maps.places.Autocomplete(input);
   autocomplete.bindTo('bounds', map);
@@ -57,13 +49,9 @@ function initialize() {
     }
     marker.setPosition(place.geometry.location);
     marker.setVisible(true);
-<<<<<<< HEAD:js/Initial.js
-    coordinate=place.geometry.location;
-=======
     
     coordinate=place.geometry.location.lat()+','+place.geometry.location.lng();
     alert(coordinate);
->>>>>>> b9b347100a2a5ebc40d454bb1be04c4729f7546b:js/initial.js
 
     var address = '';
     if (place.address_components) {
@@ -77,9 +65,6 @@ function initialize() {
     infowindow.setContent('<div><strong>' + place.name + '</strong><br>' + address);
     infowindow.open(map, marker);
   });
-<<<<<<< HEAD:js/Initial.js
-}
-=======
 
   // Sets a listener on a radio button to change the filter type on Places
   // Autocomplete.
@@ -92,7 +77,6 @@ function initialize() {
   }
  //google.maps.event.addDomListener(window, 'load', initialize);
 
->>>>>>> b9b347100a2a5ebc40d454bb1be04c4729f7546b:js/initial.js
 
 
 var n;
@@ -126,19 +110,6 @@ var SubmitComment=function (){
 	var comment=$('#commentContent').val();
 	$('#commentTable').append('<tr><td>'+comment+'</td><td>WANG WEI</td></tr>');
 	$('#commentTable tr:last').after('<tr></tr>');
-<<<<<<< HEAD:js/Initial.js
-}
-
-function submitForm(){
-  if($('#input-loc')===''){
-        alert("location cannot be null!");
-    }
-    else
-    {
-       $.ajax({url:'/event/submit',
-    type:'POST',
-    data: {name:$("#input-name").val(), my1Time:$("#my1Div").val(), my2Time:$("#my2Div").val(), my3Time:$("#my3Div").val(), location:$("#input-loc").val(), coordinate:coordinate}  // simulated server delay
-=======
 };
 var submitForm=function (){
     if($('#input-loc')===''){
@@ -148,21 +119,13 @@ var submitForm=function (){
        $.ajax({url:'/event/submit',
     type:'POST',
     data: {name:$("#input-name").val(), my1Time:$("#my1Div").val(), my2Time:$("#my2Div").val(), my3Time:$("#my3Div").val(), location:$("#pac-input").val(), coordinate:coordinate}  // simulated server delay
->>>>>>> b9b347100a2a5ebc40d454bb1be04c4729f7546b:js/initial.js
 }).done(function (bal) {
     alert(bal);
 }).fail(function (jqXHR, textStatus) {
     alert("Request failed: " + textStatus);
 });
     }
-<<<<<<< HEAD:js/Initial.js
-}
-
-
-$( document ).ready(function() {
-=======
 };
->>>>>>> b9b347100a2a5ebc40d454bb1be04c4729f7546b:js/initial.js
 
 $(document).ready(function() {
 	var now = new Date();
