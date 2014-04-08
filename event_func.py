@@ -1,4 +1,5 @@
 from google.appengine.ext import ndb    
+import logging
 
 class Event(ndb.Model):
 	ownerid = ndb.StringProperty()
@@ -10,10 +11,12 @@ class Event(ndb.Model):
 	coordinate = ndb.GeoPtProperty()
 
 def permitted():
-	return
+	return True
 
 def addEvent(ownerid, name, my1Time, my2Time, my3Time, location,
 	coordinate, eventid):
+	logging.info('tpe of eventid and coordinate ' + eventid)
+	logging.info(type(coordinate))
 	if permitted():
 		# how to verify it is really a eventid?
 		if eventid is None:
@@ -21,11 +24,12 @@ def addEvent(ownerid, name, my1Time, my2Time, my3Time, location,
 				my2Time=my2Time, my3Time=my3Time, location=location,
 				coordinate=coordinate)
 		else:
-			mykey=Key('Event', eventid)
+			mykey=ndb.Key('Event', eventid)
 			event = Event(ownerid=ownerid, name=name, my1Time=my1Time,
 				my2Time=my2Time, my3Time=my3Time, location=location,
 				coordinate=coordinate, key=mykey)
-		event.put()
+		key = event.put()
+		logging.info('Event added with key ' + key)
 
 def getEvent(event_id):
 	eventkey = ndb.Key('Event', event_id)

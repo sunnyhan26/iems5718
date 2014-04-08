@@ -22,9 +22,15 @@ class SubmitEvent(webapp2.RequestHandler):
 		my3Time = self.request.get('my3Time')
 		location = self.request.get('location')
 		coordinate = self.request.get('coordinate')
+		eventid = self.request.get('eventid')
+
+		logging.info('Received event submit rquest: ' +
+			ownerid + ', ' + name + ', ' + my1Time + ', ' + my2Time +
+			', ' + my3Time + ', ' + location + ', ' + coordinate +
+			', ' + eventid)
 
 		event_func.addEvent(ownerid, name, my1Time, my2Time, my3Time,
-			location, coordinate)
+			location, coordinate, eventid)
 		self.response.write('Event saved successfully!')
 
 class ViewEvent(webapp2.RequestHandler):
@@ -38,10 +44,20 @@ class ViewEvent(webapp2.RequestHandler):
 
 class EditEvent(webapp2.RequestHandler):
 	def get(self):
+		user = users.get_current_user()
+		if user:
+				# redirect "/" after user has logged out
+				logout_url = users.create_logout_url('/')
+		else:
+				# direct to login and redirect back to this page after login
+				self.redirect(users.create_login_url(self.request.uri))
+				# return will stop loading code below
+				return
+
 		template_values = {
-			'user': 'user',
+			'user': user,
 		}
-		template = JINJA_ENVIRONMENT.get_template('/template/Initial.html')
+		template = JINJA_ENVIRONMENT.get_template('/template/initial.html')
 		self.response.write(template.render(template_values))
         
 app = webapp2.WSGIApplication([    
