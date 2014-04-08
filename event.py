@@ -33,13 +33,32 @@ class SubmitEvent(webapp2.RequestHandler):
 			location, coordinate, eventid)
 		self.response.write('Event saved successfully!')
 
+def getdatelist():
+	datelist = [
+		'2014-04-08',
+		'2014-04-09',
+		'2014-04-26'
+		]
+	return datelist
+
+def getvotelist():
+	votelist = [ 12, 24, 36 ]
+	return votelist
+
+
 class ViewEvent(webapp2.RequestHandler):
 	def get(self):
 		eventid = self.request.get('eventid')
+		logging.info('Received view event request with eventid' + eventid)
+		datelist = getdatelist()
+		votelist = getvotelist()
+		chosenlist = [True, False, True]
 		template_values = {
-			'user': user,
+			'datelist': datelist,
+			'votelist': votelist,
+			'chosenlist': chosenlist
 		}
-		template = JINJA_ENVIRONMENT.get_template('path/to/template')
+		template = JINJA_ENVIRONMENT.get_template('/template/view.html')
 		self.response.write(template.render(template_values))
 
 class EditEvent(webapp2.RequestHandler):
