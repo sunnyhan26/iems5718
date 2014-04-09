@@ -48,7 +48,7 @@ def getvotelist():
 
 class ViewEvent(webapp2.RequestHandler):
 	def get(self):
-		eventid = self.request.get('eventid')
+		'''eventid = self.request.get('eventid')
 		logging.info('Received view event request with eventid' + eventid)
 		datelist = getdatelist()
 		votelist = getvotelist()
@@ -59,7 +59,22 @@ class ViewEvent(webapp2.RequestHandler):
 			'chosenlist': chosenlist
 		}
 		template = JINJA_ENVIRONMENT.get_template('/template/view.html')
-		self.response.write(template.render(template_values))
+		self.response.write(template.render(template_values))'''
+	def get(self):
+        	#commentlist stores a list of comment item, acooment item stores ["username", "comment","time"]
+        	commentlist=[]
+        	commentlist.append(["1","2","3"])
+        	commentlist.append(["1","2","3"])
+        	#Acquire lagitude and longitude from data base 
+        	lagitude=22.413533
+        	longitude=114.21031
+        	template_values = {
+			'commentlist': commentlist,
+                        'lagitude':lagitude,
+                        'longitude':longitude
+		}
+        	template = JINJA_ENVIRONMENT.get_template('/template/view.html')
+        	self.response.write(template.render(template_values))
 
 class EditEvent(webapp2.RequestHandler):
 	def get(self):
