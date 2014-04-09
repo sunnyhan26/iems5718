@@ -4,7 +4,7 @@
 	<meta name="viewport" content="initial-scale=1.0, user-scalable=no">
     <meta charset="utf-8">
   	<link rel="stylesheet" href="/css/bootstrap.css" type="text/css"/>  
-  	<link rel="stylesheet" href="/css/initial.css" type="text/css" />
+  	<link rel="stylesheet" href="/css/Initial.css" type="text/css" />
       <title>Initial an event</title>
       <script type="text/javascript" src="/js/jquery.js"></script>
       <script type="text/javascript" src="/js/initial.js"></script>
@@ -16,54 +16,57 @@
   </head>
   <body>
       
-  	
   	<h1 id="title">Initial an Event</h1>
     	<form role="form" id="table">
-			<div class="form-group">
-    			<label for="exampleInputEmail1">Set the event's name</label>
+		<div class="form-group" name="step1">
+    			<label for="exampleInputEmail1">Step1: Set the event's name</label>
     			<input type="text" class="form-control" id="input-name" placeholder="Enter event's name"/>
-  			</div>
-			<br/>
-			<div class="form-group">
-    			<label for="exampleInputEmail1">Set the time</label>
+  		</div>
+                <div class="form-group" name="step2">
+    			<label for="exampleInputEmail1">Step2: Make some introduction here.</label>
+    			<input type="text" id="introduction" class="form-control" placeholder="Enter introduction"/>
+  		</div>
+		<br/>
+		<div class="form-group" name="step3">
+    			<label for="exampleInputEmail1">Step3: Set the time</label>
     			<form>
-					<input type="date"  id="selector"  name="user_date"/>
-					<button class="btn btn-success" onClick="setTime()" id="confirm_date">OK</button>
-					<br/>
-					<p>(No more than 3 choices)</p>
-					<br/>
-					<div id="timeContent"></div>
-				</form>
+				<input type="date"  id="selector"  name="user_date"/>
+				<button class="btn btn-success" onClick="setTime()" id="confirm_date">OK</button>
+				<br/>
+				<p>(No more than 3 choices)</p>
+				<br/>
+				<div id="timeContent"></div>
+			</form>
 			<br/>
-			
-  			</div>
+		</div>
   			
-  			<div class="form-group">
-    			<label for="exampleInputEmail1">Set the location</label>
-  			</div>
-    
+  		<div class="form-group" name="step4">
+    			<label for="exampleInputEmail1">Step4: Set the location</label>
 			<input id="pac-input" class="controls" type="text" placeholder="Enter a location"/>
-    		        <div id="map-canvas"></div>
-    		        <br/>
-    		        <br/>
-			<table>
+    			<div id="map-canvas"></div>
+    			<br/>
+    			<br/>
+    		</div>
+		<table>
 			<div class="form-group">
-    			<label for="exampleInputEmail1">Make some comments here.</label>
-    			<input type="text" id="commentContent" class="form-control" placeholder="Enter comments"/>
+    				<label for="exampleInputEmail1">Make some comments here.</label>
+    				<input type="text" id="commentContent" class="form-control" placeholder="Enter comments"/>
   			</div>
-  			</table>
-  			<button type="button" class="btn btn-success" id="submitEvent">Submit the Event</button>
-			&nbsp;&nbsp;&nbsp;
-			<button type="button" class="btn btn-success" onclick="{location.href='/home'}">Back to main page</button>
-			<br/>
-			<br/>
-  			<table class="table" id="commentTable">
+  		</table>
+                <div id="wrong" style="display:none;color:red;">wrong!</div>
+  		<button type="button" class="btn btn-success" id="submitEvent">Submit the Event</button>
+		&nbsp;&nbsp;&nbsp;
+		<button type="button" class="btn btn-success" onclick="{location.href='/home'}">Back to main page</button>
+		<br/>
+		<br/>
+  		<table class="table" id="commentTable">
       			
       			<tbody>
         		
         
       			</tbody>
     		</table>
+                
 			
 		</form>
 
