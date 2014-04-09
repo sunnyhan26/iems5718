@@ -1,23 +1,21 @@
 var count=1;
 var coordinate='';
 var time=["","",""];
+var wrong=[0,0,0,0];
 
 function initialize() {
   var mapOptions = {
     center: new google.maps.LatLng(22.413533,114.21031),
     zoom: 17
   };
-  var map = new google.maps.Map(document.getElementById('map-canvas'),
-    mapOptions);
- 
+ var map = new google.maps.Map(document.getElementById('map-canvas'),mapOptions);
  var marker = new google.maps.Marker({
     map: map,
     position: new google.maps.LatLng(22.413533,114.21031),
     draggable: true
   });
 
-  var input = /** @type {HTMLInputElement} */(
-      document.getElementById('pac-input'));
+  var input = /** @type {HTMLInputElement} */(document.getElementById('pac-input'));
 
   //var types = document.getElementById('type-selector');
   map.controls[google.maps.ControlPosition.TOP_LEFT].push(input);
@@ -79,11 +77,6 @@ function initialize() {
  //google.maps.event.addDomListener(window, 'load', initialize);
 
 
-
-var n;
-var min=0;
-var flag=0;
-
 function deleteTime(divNum) {
 	event.preventDefault();
 	$('#'+divNum).remove();
@@ -99,7 +92,7 @@ function setTime() {
  	divIdName="my"+count+"Div";  
  	
   	$('#timeContent').append(' <div id='+divIdName+'>'+content+'<a href="#" onclick="deleteTime(\'' + divIdName + '\')">   Delete</a></div>');
-    time[(count-1)]=content;
+        time[(count-1)]=content;
   	count++;
   	var flag=count-min;
   	if(flag==4)
@@ -114,18 +107,57 @@ var SubmitComment=function (){
 	$('#commentTable tr:last').after('<tr></tr>');
 };
 var submitForm=function (){
-    if($('#input-loc')===''){
-        alert("location cannot be null!");
+    //alert(typeof($("#input-name").val()));
+    if($("#input-name").val()==""){
+        document.getElementById('wrong').innerHTML = 'You have not set the event name!';
+        $("#wrong").css('display', 'block');
+        wrong[0]=1;
+    }else{
+        wrong[0]=0;
+        $("#wrong").css('display', 'none');
     }
-    else{
+    if(wrong[0]==0){
+        if($("#introduction").val()==""){
+            document.getElementById('wrong').innerHTML = 'You have not set the introduction!';
+            $("#wrong").css('display', 'block');
+            wrong[1]=1;
+        }else{
+            wrong[1]=0;
+            $("#wrong").css('display', 'none');
+        }
+    }
+    if(wrong[1]==0){
+    //alert(typeof(time[0]));
+        if(time[0]==""){
+            wrong[2]=1
+            document.getElementById('wrong').innerHTML = 'You have not set the time!';
+            $("#wrong").css('display', 'block');
+        }else{
+            wrong[2]=0;
+            $("#wrong").css('display', 'none');
+        }
+    }
+    if(wrong[2]==0){
+        if($('#input-loc').val()==undefined){
+            document.getElementById('wrong').innerHTML = 'You have not set the location!';
+            $("#wrong").css('display', 'block');
+            wrong[3]=1;
+        }else{
+            wrong[3]=0;
+            $("#wrong").css('display', 'none');
+        }
+    }
+    
+    if(wrong[0]==0&&wrong[1]==0&&wrong[2]==0&&wrong[3]==0){
+       $("#wrong").css('display', 'none');
        $.ajax({url:'/event/submit',
     type:'POST',
-    data: {name:$("#input-name").val(), my1Time:time[0], my2Time:time[1], my3Time:time[2], location:$("#pac-input").val(), coordinate:coordinate}  // simulated server delay
-}).done(function (bal) {
-    alert(bal);
-}).fail(function (jqXHR, textStatus) {
-    alert("Request failed: " + textStatus);
-});
+    data: {name:$("#input-name").val(), my1Time:time[0], my2Time:time[1], my3Time:time[2], location:$("#pac-input").val(), coordinate:coordinate}
+    {
+    	alert(bal);
+    	}).fail(function (jqXHR, textStatus) {
+    	alert("Request failed: " + textStatus);
+    	});
     }
 };
 
