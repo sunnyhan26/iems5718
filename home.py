@@ -53,6 +53,7 @@ class HomePage(webapp2.RequestHandler):
 		template_values = {
 			'logoutlink' : logoutlink,
 			'userlist' : userlist,
+			'user' : user,
 			'eventlist' : eventlist
 		}
 		template = JINJA_ENVIRONMENT.get_template('/template/mainPage.html')
