@@ -49,7 +49,7 @@ class HomePage(webapp2.RequestHandler):
 		user = user_func.getCurrentUser(self)
 		logoutlink = users.create_logout_url('/')
 		userlist = user_func.getUserList()
-		eventlist = geteventlist()
+		eventlist = event_func.getEventList()
 		template_values = {
 			'logoutlink' : logoutlink,
 			'userlist' : userlist,

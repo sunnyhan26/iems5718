@@ -28,8 +28,9 @@ def getUserInfo(user_id):
 	
 def getUserList():
 	query = User.query()
+	result = query.fetch()
 	userlist = [] 
-	for result in query.iter():
-		userlist.append(result.name)
+	for user in result:
+		userlist.append(user.name)
 	return userlist
 

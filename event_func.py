@@ -42,6 +42,13 @@ def getEvent(event_id):
 	return event
 
 def getEventList():
-	query = Event.all()
-	eventlist = query.fetch()
+	"""
+	Return a list of event in the format of [name, location, time]
+	"""
+	eventlist = []
+	query = Event.query()
+	result = query.fetch()
+	for event in result:
+		eventlist.append([event.name, event.location, event.my1Time])
+		logging.info(event)
 	return eventlist
