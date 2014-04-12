@@ -1,5 +1,6 @@
 import webapp2
 import event_func
+import user_func
 from google.appengine.api import users
 
 import os
@@ -45,48 +46,40 @@ def getvotelist():
 	votelist = [ 12, 24, 36 ]
 	return votelist
 
+def getCommentList():
+	commentlist=[]
+	commentlist.append(["1","2","3"])
+	commentlist.append(["1","2","3"])
+	return commentlist
+
+def getCoordinate():
+	return [2.43533, 114.21031]
+
 
 class ViewEvent(webapp2.RequestHandler):
 	def get(self):
-		'''eventid = self.request.get('eventid')
+		user = user_func.getCurrentUser(self)
+		eventid = self.request.get('eventid')
 		logging.info('Received view event request with eventid' + eventid)
 		datelist = getdatelist()
 		votelist = getvotelist()
 		chosenlist = [True, False, True]
+		commentlist = getCommentList()
+		coordinate = getCoordinate()
 		template_values = {
 			'datelist': datelist,
 			'votelist': votelist,
-			'chosenlist': chosenlist
+			'chosenlist': chosenlist,
+			'commentlist': commentlist,
+			'lagitude':coordinate[0],
+			'longitude':coordinate[1]
 		}
 		template = JINJA_ENVIRONMENT.get_template('/template/view.html')
-		self.response.write(template.render(template_values))'''
-	def get(self):
-        	#commentlist stores a list of comment item, acooment item stores ["username", "comment","time"]
-        	commentlist=[]
-        	commentlist.append(["1","2","3"])
-        	commentlist.append(["1","2","3"])
-        	#Acquire lagitude and longitude from data base 
-        	lagitude=22.413533
-        	longitude=114.21031
-        	template_values = {
-			'commentlist': commentlist,
-                        'lagitude':lagitude,
-                        'longitude':longitude
-		}
-        	template = JINJA_ENVIRONMENT.get_template('/template/view.html')
-        	self.response.write(template.render(template_values))
+		self.response.write(template.render(template_values))
 
 class EditEvent(webapp2.RequestHandler):
 	def get(self):
-		user = users.get_current_user()
-		if user:
-				# redirect "/" after user has logged out
-				logout_url = users.create_logout_url('/')
-		else:
-				# direct to login and redirect back to this page after login
-				self.redirect(users.create_login_url(self.request.uri))
-				# return will stop loading code below
-				return
+		user = user_func.getCurrentUser(self)
 
 		template_values = {
 			'user': user,
