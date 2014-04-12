@@ -152,7 +152,7 @@ var submitForm=function (){
        $("#wrong").css('display', 'none');
        $.ajax({url:'/event/submit',
     type:'POST',
-    data: {name:$("#input-name").val(), introduction：$("#introduction").val(), my1Time:time[0], my2Time:time[1], my3Time:time[2], location:$("#pac-input").val(), coordinate:coordinate}
+    data: {name:$("#input-name").val(), introduction:$("#introduction").val(), my1Time:time[0], my2Time:time[1], my3Time:time[2], location:$("#pac-input").val(), coordinate:coordinate}
        }).done(function (bal) {
     	alert(bal);
     	}).fail(function (jqXHR, textStatus) {
