@@ -2,6 +2,7 @@ import webapp2
 import event_func
 import user_func
 from google.appengine.api import users
+from datetime import datetime
 
 import os
 # import module for templates
@@ -14,10 +15,20 @@ JINJA_ENVIRONMENT = jinja2.Environment(
     extensions=['jinja2.ext.autoescape'],
     autoescape=True)
 
+def str2datetime(timestr):
+	timeformat= "%Y-%m-%d"
+	try:
+		t = datetime.strptime(timestr, timeformat)
+	except ValueError:
+		logging.warn("Received time with invalid format " + timestr)
+		t = None
+	return t
+
 class SubmitEvent(webapp2.RequestHandler):
 	def post(self):
 		ownerid = users.get_current_user().user_id()
 		name = self.request.get('name')
+		summary = self.request.get('introduction')
 		my1Time = self.request.get('my1Time')
 		my2Time = self.request.get('my2Time')
 		my3Time = self.request.get('my3Time')
@@ -25,13 +36,18 @@ class SubmitEvent(webapp2.RequestHandler):
 		coordinate = self.request.get('coordinate')
 		eventid = self.request.get('eventid')
 
+		splitted = coordinate.split(',')
+		lagitude = float(splitted[0])
+		longitude = float(splitted[1])
+
 		logging.info('Received event submit rquest: ' +
-			ownerid + ', ' + name + ', ' + my1Time + ', ' + my2Time +
-			', ' + my3Time + ', ' + location + ', ' + coordinate +
+			ownerid + ', ' + name + ', ' + summary + ',' + my1Time + ', ' +
+			my2Time + ', ' + my3Time + ', ' + location + ', ' + coordinate +
 			', ' + eventid)
 
-		event_func.addEvent(ownerid, name, my1Time, my2Time, my3Time,
-			location, coordinate, eventid)
+		event_func.addEvent(ownerid, name, summary, str2datetime(my1Time),
+			str2datetime(my2Time), str2datetime(my3Time),
+			location, lagitude, longitude, eventid)
 		self.response.write('Event saved successfully!')
 
 def getdatelist():
