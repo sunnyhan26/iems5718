@@ -5,7 +5,8 @@ from google.appengine.api import users
 class User(ndb.Model):
 	email = ndb.StringProperty()
 	name = ndb.StringProperty()
-	lastLoginDate = ndb.DateTimeProperty(auto_now_add=True)
+	createTime = ndb.DateTimeProperty(auto_now_add=True)
+	lastLoginTime = ndb.DateTimeProperty(auto_now=True)
 
 def getCurrentUser(requestHandler):
 	user = users.get_current_user()
