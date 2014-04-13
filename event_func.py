@@ -37,6 +37,7 @@ def addEvent(ownerid, name, summary, my1Time, my2Time, my3Time, location,
 def getEvent(event_id):
 	eventkey = ndb.Key('Event', event_id)
 	event = eventkey.get()
+	logging.info('Got an event with key %d, %s' % (event_id, event))
 	return event
 
 def _fetchEventList(query):
