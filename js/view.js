@@ -107,7 +107,9 @@ function setTime() {
 
 function submitComment() {
 	event.preventDefault();
-	var comment=$('#commentContent').val();
+	var comment=$('#comment').val();
+	$('#commentTable').append('<tr><td>'+comment+'</td><td>WANG WEI</td></tr>');
+	$('#commentTable tr:last').after('<tr></tr>');
 	$.ajax({
     				url: '/comments/add', 
  						type: "POST",

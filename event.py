@@ -69,8 +69,7 @@ class ViewEvent(webapp2.RequestHandler):
 		try:
 			event = event_func.getEvent(int(eventid))
 		except ValueError:
-			pass
-			#event = event_func.getEvent(5629499534213120)
+			event = event_func.getEvent(5066549580791808)
 		datelist = [event.my1Time, event.my2Time, event.my3Time]
 		votelist = getvotelist()
 		chosenlist = [True, False, True]

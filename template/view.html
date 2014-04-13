@@ -22,14 +22,14 @@
 			<br/>
 			<div class="form-group">
     			<label for="exampleInputEmail1">Event's Description</label>
-    			<div>event introduction</div>
+        <div>{{introduction}}</div>
   			</div>
   			<br/>
 			<div class="form-group">
     			<label for="exampleInputEmail1">Event's time</label>
           <div id="timeContent">
-				   {% for dateObject in datelist %}
-            <input type="radio"/> {{dateObject}}<br/>
+				   {% for i in range (0, datelist.length) %}
+            <input type="radio"/> {{dateObject}} 	&nbsp;&nbsp;&nbsp;<span>Number of Votes: votelist[0]</span><br/>
 				   {% endfor %}  
 				  </div>
 			  <br/>			
@@ -60,22 +60,22 @@
     	
     		<br/>
     		<br/>
+        <table>
+				  <div class="form-group">
+    				<label for="exampleInputEmail1">Make some comments here.</label>
+    				<input type="text" id="commentContent" class="form-control" placeholder="Enter comments"/>
+            <button class="btn btn-success" onClick=submitComment()>Submit comment</button>
+  				</div>
+  			</table>
     			<table class="table" id="comment">
     			{% for item in commentlist %}
-
         		<tr>
           			<td>{{item[0]}}say: {{item[1]}} at {{item[2]}}</td>	
         		</tr>
                         {% endfor %}
           </table>
     		
-			<table>
-				<div class="form-group">
-    				<label for="exampleInputEmail1">Make some comments here.</label>
-    				<input type="text" id="commentContent" class="form-control" placeholder="Enter comments"/>
-          <button onClick=submitComment()>Submit comment</button>
-  				</div>
-  			</table>
+
   			
   			<button type="button" class="btn btn-success" onclick="submitComment()">Join Event</button>
 			
