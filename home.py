@@ -1,5 +1,6 @@
 import webapp2
 import event_func
+import user_func
 from google.appengine.api import users
 
 import os
@@ -45,11 +46,14 @@ def geteventlist():
 
 class HomePage(webapp2.RequestHandler):
 	def get(self):
-		userlist = getuserlist()
-		eventlist = geteventlist()
+		user = user_func.getCurrentUser(self)
+		logoutlink = users.create_logout_url('/')
+		userlist = user_func.getUserList()
+		eventlist = event_func.getEventList()
 		template_values = {
-			'logoutlink' : 'www.google.com',
+			'logoutlink' : logoutlink,
 			'userlist' : userlist,
+			'user' : user,
 			'eventlist' : eventlist
 		}
 		template = JINJA_ENVIRONMENT.get_template('/template/mainPage.html')
@@ -57,11 +61,9 @@ class HomePage(webapp2.RequestHandler):
 
 class JoinedEventPage(webapp2.RequestHandler):
 	def get(self):
-		userlist = getuserlist()
+		user = user_func.getCurrentUser(self)
 		eventlist = geteventlist()
 		template_values = {
-			'logoutlink' : 'www.google.com',
-			'userlist' : userlist,
 			'eventlist' : eventlist
 		}
 		template = JINJA_ENVIRONMENT.get_template('/template/joined.html')
@@ -69,11 +71,9 @@ class JoinedEventPage(webapp2.RequestHandler):
 
 class MyEventPage(webapp2.RequestHandler):
 	def get(self):
-		userlist = getuserlist()
+		user = user_func.getCurrentUser(self)
 		eventlist = geteventlist()
 		template_values = {
-			'logoutlink' : 'www.google.com',
-			'userlist' : userlist,
 			'eventlist' : eventlist
 		}
 		template = JINJA_ENVIRONMENT.get_template('/template/myEvent.html')
