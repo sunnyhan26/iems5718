@@ -22,8 +22,11 @@
 					<th>Title</th><th>Time</th><th>Location</th>
 				</tr>
 			</thead>
-			<tr><td>Event1</td><td>Time</td><td>Location</td></tr>
-			<tr><td>Event1</td><td>Time</td><td>Location</td></tr>
+      <tbody>
+			{% for joinedeventObject in joinedeventlist %}
+					<tr><td><a href="/event/view">{{joinedeventObject[0]}}</a></td><td>{{joinedeventObject[2]}}</td><td>{{joinedeventObject[1]}}</td></tr>
+			{% endfor %}
+      </tbody>
 		</table>
 	</td>
 	<td width="20%">

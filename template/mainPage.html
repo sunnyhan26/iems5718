@@ -1,4 +1,5 @@
 <!DOCTYPE html>
+{% autoescape true %}
 <html lang="en">
 <head>
 	<link rel="stylesheet" href="/css/datepicker.css" type="text/css" />
@@ -15,7 +16,8 @@
 
 <body>
 <h1 align=center>Social Network Name</h1>
-  <h2 align=center>Welcome {{ user }} </h2><a href="{{logoutlink | safe}}">Sign out</a>
+  <h2 align=center>Welcome Jizhao <a href='http://{{logoutlink}}'>Sign out</a></h2>
+
 <h3 align=center>All Events</h3>
 <table width="100%" height="100%" border=0>
 
@@ -27,11 +29,14 @@
 			<table class="table" width="100%">
 				<thead>
 					<tr class="info">
-						<th >Title</th><th class="headright">Time</th>
+					<th>Title</th><th>Time</th><th>Location</th>
 					</tr>
 				</thead>
-				<tr><td><a href="/event/view">{{eventlist[0][0]}}</a></td><td align="right" id="clockbox">Time</td></tr>
-				<tr><td>Event2</td><td></td></tr>
+				<tbody id="eventContent">
+				{% for eventObject in eventlist %}
+					<tr><td><a href="/event/view">{{eventObject[0]}}</a></td><td>{{eventObject[2]}}</td><td>{{eventObject[1]}}</td></tr>
+				{% endfor %}
+				</tbody>
 				
 			</table>
 		</td>
@@ -46,8 +51,9 @@
 						<th align=center>My Circle</th>
 					</tr>
 				</thead>
-				<tr"><td>Sunny</td></tr>
-				<tr><td>ChingYi</td></tr>
+				{% for user in userlist %}
+        <tr><td>{{user}}</td></tr>
+				{% endfor %}
 			</table>
 		</td>
 		
@@ -65,3 +71,4 @@
 
 </body>
 </html>
+{% endautoescape %}
