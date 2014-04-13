@@ -36,14 +36,15 @@ class SubmitEvent(webapp2.RequestHandler):
 		coordinate = self.request.get('coordinate')
 		eventid = self.request.get('eventid')
 
-		splitted = coordinate.split(',')
-		lagitude = float(splitted[0])
-		longitude = float(splitted[1])
-
 		logging.info('Received event submit rquest: ' +
 			ownerid + ', ' + name + ', ' + summary + ',' + my1Time + ', ' +
 			my2Time + ', ' + my3Time + ', ' + location + ', ' + coordinate +
 			', ' + eventid)
+
+		splitted = coordinate.split(',')
+		lagitude = float(splitted[0])
+		longitude = float(splitted[1])
+
 
 		event_func.addEvent(ownerid, name, summary, str2datetime(my1Time),
 			str2datetime(my2Time), str2datetime(my3Time),

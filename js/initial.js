@@ -138,7 +138,7 @@ var submitForm=function (){
         }
     }
     if(wrong[2]==0){
-        if($('#pac-input').val()==undefined){
+        if($('#pac-input').val()==""){
             document.getElementById('wrong').innerHTML = 'You have not set the location!';
             $("#wrong").css('display', 'block');
             wrong[3]=1;
