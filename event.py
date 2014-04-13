@@ -2,7 +2,6 @@ import webapp2
 import event_func
 import user_func
 from google.appengine.api import users
-from datetime import datetime
 
 import os
 # import module for templates
@@ -14,15 +13,6 @@ JINJA_ENVIRONMENT = jinja2.Environment(
     loader=jinja2.FileSystemLoader(os.path.dirname(__file__)),
     extensions=['jinja2.ext.autoescape'],
     autoescape=True)
-
-def str2datetime(timestr):
-	timeformat= "%Y-%m-%d"
-	try:
-		t = datetime.strptime(timestr, timeformat)
-	except ValueError:
-		logging.warn("Received time with invalid format " + timestr)
-		t = None
-	return t
 
 class SubmitEvent(webapp2.RequestHandler):
 	def post(self):
@@ -41,6 +31,7 @@ class SubmitEvent(webapp2.RequestHandler):
 			my2Time + ', ' + my3Time + ', ' + location + ', ' + coordinate +
 			', ' + eventid)
 
+
 		splitted = coordinate.split(',')
 		lagitude = float(splitted[0])
 		longitude = float(splitted[1])
@@ -48,8 +39,16 @@ class SubmitEvent(webapp2.RequestHandler):
 
 		event_func.addEvent(ownerid, name, summary, str2datetime(my1Time),
 			str2datetime(my2Time), str2datetime(my3Time),
+
+		event_func.addEvent(ownerid, name, summary, my1Time,
+			my2Time, my3Time,
 			location, lagitude, longitude, eventid)
 		self.response.write('Event saved successfully!')
+
+class SubmitVote(webapp2.RequestHandler):
+	def post(self):
+		eventid = self.request.get('eventid')
+		voteList = self.request.get('voteList')
 
 def getdatelist():
 	datelist = [
