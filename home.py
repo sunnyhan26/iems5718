@@ -62,7 +62,7 @@ class HomePage(webapp2.RequestHandler):
 class JoinedEventPage(webapp2.RequestHandler):
 	def get(self):
 		user = user_func.getCurrentUser(self)
-		eventlist = geteventlist()
+		eventlist = event_func.getEventListByOwner(user.user_id())
 		template_values = {
 			'eventlist' : eventlist
 		}
@@ -72,8 +72,9 @@ class JoinedEventPage(webapp2.RequestHandler):
 class MyEventPage(webapp2.RequestHandler):
 	def get(self):
 		user = user_func.getCurrentUser(self)
-		eventlist = geteventlist()
+		eventlist = event_func.getEventListByOwner(user.user_id())
 		template_values = {
+			'user' : user,
 			'eventlist' : eventlist
 		}
 		template = JINJA_ENVIRONMENT.get_template('/template/myEvent.html')

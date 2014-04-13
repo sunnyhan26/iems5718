@@ -52,3 +52,15 @@ def getEventList():
 		eventlist.append([event.name, event.location, event.my1Time])
 		logging.info(event)
 	return eventlist
+
+def getEventListByOwner(ownerUserID):
+	"""
+	Return a list of event created by the user with ownerUserID
+	"""
+	eventlist = []
+	query = Event.query(Event.ownerid==ownerUserID)
+	result = query.fetch()
+	for event in result:
+		eventlist.append([event.name, event.location, event.my1Time])
+		logging.info(event)
+	return eventlist
