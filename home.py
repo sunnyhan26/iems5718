@@ -14,36 +14,6 @@ JINJA_ENVIRONMENT = jinja2.Environment(
     extensions=['jinja2.ext.autoescape'],
     autoescape=True)
 
-def getuserlist():
-	userlist = ['user0',
-		'user1',
-		'user2',
-		'user3',
-		'user4',
-		'user5',
-		'user6',
-		'user7',
-		'user8',
-		'user9',
-		'usera']
-	return userlist
-
-def geteventlist():
-	eventlist = [
-		['event0', 'location0', 'time0'],
-		['event1', 'location1', 'time1'],
-		['event2', 'location2', 'time2'],
-		['event3', 'location3', 'time3'],
-		['event4', 'location4', 'time4'],
-		['event5', 'location5', 'time5'],
-		['event6', 'location6', 'time6'],
-		['event7', 'location7', 'time7'],
-		['event8', 'location8', 'time8'],
-		['event9', 'location9', 'time9'],
-		['event10', 'location10', 'time10']
-		]
-	return eventlist
-
 class HomePage(webapp2.RequestHandler):
 	def get(self):
 		user = user_func.getCurrentUser(self)

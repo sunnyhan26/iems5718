@@ -1,5 +1,6 @@
 from google.appengine.ext import ndb    
 import logging
+from time_func imoprt str2datetime, datetime2str
 
 class Event(ndb.Model):
 	ownerid = ndb.StringProperty()
@@ -23,16 +24,13 @@ def addEvent(ownerid, name, summary, my1Time, my2Time, my3Time, location,
 	if permitted():
 		# how to verify it is really a eventid?
 		if eventid == '':
-			event = Event(ownerid=ownerid, name=name, summary=summary,
-				my1Time=my1Time,
-				my2Time=my2Time, my3Time=my3Time, location=location,
-				lagitude=lagitude, longitude=longitude)
+			mykey=None
 		else:
-			mykey=ndb.Key('Event', eventid)
-			event = Event(ownerid=ownerid, name=name, summary=summary,
-				my1Time=my1Time,
-				my2Time=my2Time, my3Time=my3Time, location=location,
-				lagitude=lagitude, longitude=longitude, key=mykey)
+			mykey=ndb.Key('Event', int(eventid))
+		event = Event(ownerid=ownerid, name=name, summary=summary,
+			my1Time=str2datetime(my1Time), my2Time=str2datetime(my2Time),
+			my3Time=str2datetime(my3Time), location=location,
+			lagitude=lagitude, longitude=longitude, key=mykey)
 		key = event.put()
 		logging.info('Event added with key %s' % key)
 
@@ -41,26 +39,25 @@ def getEvent(event_id):
 	event = eventkey.get()
 	return event
 
+def _fetchEventList(query):
+	result = query.fetch()
+	eventlist = []
+	for event in result:
+		eventlist.append([event.name, event.location,
+			datetime2str(event.my1Time), event.key])
+		logging.info(event)
+	return eventlist
+
 def getEventList():
 	"""
 	Return a list of event in the format of [name, location, time]
 	"""
-	eventlist = []
 	query = Event.query()
-	result = query.fetch()
-	for event in result:
-		eventlist.append([event.name, event.location, event.my1Time])
-		logging.info(event)
-	return eventlist
+	return _fetchEventList(query)
 
 def getEventListByOwner(ownerUserID):
 	"""
 	Return a list of event created by the user with ownerUserID
 	"""
-	eventlist = []
 	query = Event.query(Event.ownerid==ownerUserID)
-	result = query.fetch()
-	for event in result:
-		eventlist.append([event.name, event.location, event.my1Time])
-		logging.info(event)
-	return eventlist
+	return _fetchEventList(query)
