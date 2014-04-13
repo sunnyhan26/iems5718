@@ -79,7 +79,7 @@ class ViewEvent(webapp2.RequestHandler):
 		template_values = {
 			'eventname': event.name,
 			'location': event.location,
-			'introduction' : event.introduction,
+			'introduction' : event.summary,
 			'datelist': datelist,
 			'votelist': votelist,
 			'chosenlist': chosenlist,
