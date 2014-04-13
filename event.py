@@ -43,13 +43,11 @@ class SubmitEvent(webapp2.RequestHandler):
 
 class SubmitVote(webapp2.RequestHandler):
 	def post(self):
+		userid = users.get_current_user().user_id()
 		eventid = self.request.get('eventid')
 		voteList = self.request.get('voteList')
+		voteEvent(eventid, userid, voteList)
 		self.response.write('Vote saved successfully!')
-
-def getvotelist():
-	votelist = [ 12, 24, 36 ]
-	return votelist
 
 def getCommentList():
 	commentlist=[]
@@ -57,24 +55,19 @@ def getCommentList():
 	commentlist.append(["1","2","3"])
 	return commentlist
 
-def getCoordinate():
-	return [2.43533, 114.21031]
-
-
 class ViewEvent(webapp2.RequestHandler):
 	def get(self):
 		user = user_func.getCurrentUser(self)
 		eventid = self.request.get('eventid')
-		logging.info('Received view event request with eventid' + eventid)
+		logging.info('Received view event request with eventid ' + eventid)
 		try:
 			event = event_func.getEvent(int(eventid))
 		except ValueError:
 			event = event_func.getEvent(5066549580791808)
 		datelist = [event.my1Time, event.my2Time, event.my3Time]
-		votelist = getvotelist()
-		chosenlist = [True, False, True]
+		votelist = event_func.getVoteList(int(eventid), None)
+		chosenlist = event_func.getVoteList(int(eventid), user.user_id()) 
 		commentlist = getCommentList()
-		coordinate = getCoordinate()
 		template_values = {
 			'eventname': event.name,
 			'location': event.location,
@@ -105,5 +98,6 @@ class EditEvent(webapp2.RequestHandler):
 app = webapp2.WSGIApplication([    
     ('/event/edit', EditEvent),  
     ('/event/view', ViewEvent),  
-    ('/event/submit', SubmitEvent)
+    ('/event/submit', SubmitEvent),
+    ('/event/submitvote', SubmitVote),
     ], debug=True)

@@ -15,6 +15,11 @@ class Event(ndb.Model):
 	createTime = ndb.DateTimeProperty(auto_now_add=True)
 	lastModifiedTime = ndb.DateTimeProperty(auto_now=True)
 
+class EventVote(ndb.Model):
+	userid = ndb.StringProperty()
+	my1Vote = ndb.BooleanProperty()
+	my2Vote = ndb.BooleanProperty()
+	my3Vote = ndb.BooleanProperty()
 
 def permitted():
 	return True
@@ -33,6 +38,37 @@ def addEvent(ownerid, name, summary, my1Time, my2Time, my3Time, location,
 			lagitude=lagitude, longitude=longitude, key=mykey)
 		key = event.put()
 		logging.info('Event added with key %s' % key)
+
+def voteEvent(eventid, userid, voteList):
+	parentkey = ndb.Key('Event', int(eventid))
+
+	vote = EventVote(key=ndb.Key('Event', int(eventid), 'EventVote',userid),
+		userid=userid,
+		my1Vote=voteList[0], my2Vote=voteList[1], my3Vote=voteList[2])
+
+	key = vote.put()
+	logging.info("voted Event with key %s" %key)
+
+def getVoteList(eventid, userid):
+	ancestor_key = ndb.Key('Event', eventid)
+	if userid:
+		query = EventVote.query( EventVote.userid == userid,
+			ancestor=ancestor_key )
+	else:
+		query = EventVote.query(ancestor=ancestor_key)
+	result = query.fetch()
+	votelist = [0, 0, 0]
+	for vote in result:
+		if vote.my1Vote:
+			votelist[0] += 1
+		if vote.my2Vote:
+			votelist[1] += 1
+		if vote.my3Vote:
+			votelist[2] += 1
+	logging.info('votelist = %s' % votelist)
+	return votelist
+	
+
 
 def getEvent(event_id):
 	eventkey = ndb.Key('Event', event_id)
