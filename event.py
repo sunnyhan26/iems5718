@@ -66,7 +66,12 @@ class ViewEvent(webapp2.RequestHandler):
 		user = user_func.getCurrentUser(self)
 		eventid = self.request.get('eventid')
 		logging.info('Received view event request with eventid' + eventid)
-		datelist = getdatelist()
+		try:
+			event = event_func.getEvent(int(eventid))
+		except ValueError:
+			pass
+			#event = event_func.getEvent(5629499534213120)
+		datelist = [event.my1Time, event.my2Time, event.my3Time]
 		votelist = getvotelist()
 		chosenlist = [True, False, True]
 		commentlist = getCommentList()
