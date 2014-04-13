@@ -1,6 +1,6 @@
 from google.appengine.ext import ndb    
 import logging
-from time_func imoprt str2datetime, datetime2str
+from time_func import str2datetime, datetime2str
 
 class Event(ndb.Model):
 	ownerid = ndb.StringProperty()
