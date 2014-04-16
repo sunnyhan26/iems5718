@@ -81,7 +81,7 @@ def _fetchEventList(query):
 	eventlist = []
 	for event in result:
 		eventlist.append([event.name, event.location,
-			datetime2str(event.my1Time), event.key])
+			datetime2str(event.my1Time), event.key.id()])
 		logging.info(event)
 	return eventlist
 
