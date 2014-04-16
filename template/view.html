@@ -27,9 +27,10 @@
   			<br/>
 			<div class="form-group">
     			<label for="exampleInputEmail1">Event's time</label>
+          <div id="eventId">{{eventid}}</div>
           <div id="timeContent">
            {% for i in range (0, length) %}
-             <input type="radio"/> {{datelist[i]}}  &nbsp;&nbsp;&nbsp;<span>Number of Votes: {{ votelist[i]}}</span><br/>
+            <input type="radio" id="radio{{i}}Name"/> {{datelist[i]}}  &nbsp;&nbsp;&nbsp;<span>Number of Votes: {{ votelist[i]}}</span><br/>
 				   {% endfor %}  
 				  </div>
 			  <br/>			
@@ -77,7 +78,7 @@
     		
 
   			
-  			<button type="button" class="btn btn-success" onclick="submitComment()">Join Event</button>
+  		<button type="button" class="btn btn-success" onclick="joinEvent()">Join Event</button>
 			
 			&nbsp;&nbsp;&nbsp;
 			
