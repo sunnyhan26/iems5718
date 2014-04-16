@@ -92,9 +92,10 @@ function setTime() {
 	var divIdName;
  	divIdName="my"+count+"Div";
   $('#timeContent').append(' <div id='+divIdName+'>'+content+'<a href="#" onclick="deleteTime(\'' + divIdName + '\')">   Delete</a></div>');
+  time[(count-1)]=content;
   count++;
   flag=count-min;
-  alert(flag);
+  alert(divIdName);
   if(flag==4)
   	$("#confirm_date").attr("disabled", "disabled");
   	

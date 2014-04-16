@@ -34,7 +34,7 @@
 				</thead>
 				<tbody id="eventContent">
 				{% for eventObject in eventlist %}
-					<tr><td><a href="/event/view">{{eventObject[0]}}</a></td><td>{{eventObject[2]}}</td><td>{{eventObject[1]}}</td></tr>
+          <tr><td><a href="/event/view?eventid={{eventObject[3]}}">{{eventObject[0]}}</a></td><td>{{eventObject[2]}}</td><td>{{eventObject[1]}}</td></tr>
 				{% endfor %}
 				</tbody>
 				
