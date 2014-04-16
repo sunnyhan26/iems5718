@@ -75,7 +75,7 @@ class ViewEvent(webapp2.RequestHandler):
 		length = listCountNonNone(datelist)
 		votelist = event_func.getVoteList(int(eventid), None)
 		chosenlist = event_func.getVoteList(int(eventid), user.user_id()) 
-		commentlist = getCommentList()
+		commentlist = getCommentList(eventid)
 		template_values = {
 			'eventname': event.name,
 			'location': event.location,
@@ -87,6 +87,7 @@ class ViewEvent(webapp2.RequestHandler):
 			'commentlist': commentlist,
 			'lat':event.lagitude,
 			'long':event.longitude
+			'eventid':eventid
 		}
 		if event.ownerid == user.user_id():
 			template = JINJA_ENVIRONMENT.get_template('/template/initial.html')
