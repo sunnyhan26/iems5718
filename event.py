@@ -55,6 +55,13 @@ def getCommentList():
 	commentlist.append(["1","2","3"])
 	return commentlist
 
+def listCountNonNone(list):
+	count = 0
+	for i in list:
+		if i is not None:
+			count += 1
+	return count
+
 class ViewEvent(webapp2.RequestHandler):
 	def get(self):
 		user = user_func.getCurrentUser(self)
@@ -65,6 +72,7 @@ class ViewEvent(webapp2.RequestHandler):
 		except ValueError:
 			event = event_func.getEvent(5066549580791808)
 		datelist = [event.my1Time, event.my2Time, event.my3Time]
+		length = listCountNonNone(datelist)
 		votelist = event_func.getVoteList(int(eventid), None)
 		chosenlist = event_func.getVoteList(int(eventid), user.user_id()) 
 		commentlist = getCommentList()
@@ -73,6 +81,7 @@ class ViewEvent(webapp2.RequestHandler):
 			'location': event.location,
 			'introduction' : event.summary,
 			'datelist': datelist,
+			'length' : length,
 			'votelist': votelist,
 			'chosenlist': chosenlist,
 			'commentlist': commentlist,

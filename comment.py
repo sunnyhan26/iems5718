@@ -20,7 +20,7 @@ class AddComment(webapp2.RequestHandler):
 
 		logging.info('Received AddComment for ' + eventid + ' : ' + comment)
 
-		addComment(eventid, comment)
+		comment_func.addComment(eventid, comment)
 
 class GetList(webapp2.RequestHandler):
 	def post(self):
@@ -31,7 +31,7 @@ class GetList(webapp2.RequestHandler):
 		logging.info('Received GetList for ' + eventid + ', startcomment' + 
 			startcomment +', no: ' + commentno)
 
-		commentlist = getCommentList()
+		commentlist = comment_func.getCommentList()
 
 
 
