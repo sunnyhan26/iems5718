@@ -35,22 +35,26 @@
 			  <br/>			
   		</div>
   			
+  			
+  			
+  			
   			<div class="form-group">
     			<label for="exampleInputEmail1">Event's location</label>
+                        <div>{{location}}</div>
   			</div>
-  			<div id="map-canvas" style="height:250px;width:300px;"></div>
+  			<div id="map-canvas"></div>
                         <script>
                         
                             function initialize() {
                                 var mapOptions = {
-                                        center: new google.maps.LatLng({{lagitude}},{{longitude}}),
+                                        center: new google.maps.LatLng({{lat}},{{long}}),
                                         zoom: 17
                                 };
                                 var map = new google.maps.Map(document.getElementById('map-canvas'),mapOptions);
  
                                 var marker = new google.maps.Marker({
                                     map: map,
-                                    position: new google.maps.LatLng({{lagitude}},{{longitude}}),
+                                    position: new google.maps.LatLng({{lat}},{{long}}),
                                     draggable: true
                                 });
                              }
@@ -60,20 +64,22 @@
     	
     		<br/>
     		<br/>
-        <table>
-				  <div class="form-group">
-    				<label for="exampleInputEmail1">Make some comments here.</label>
-    				<input type="text" id="commentContent" class="form-control" placeholder="Enter comments"/>
-            <button class="btn btn-success" onclick="$.ajax({url:'/comments/add',type:'POST',data:{comment:$('#commentContent').val(),eventid:{{eventid}}}})">Submit comment</button>
-  				</div>
-  			</table>
-    			<table class="table" id="comment">
+       
+       
+       
+       <table class="table" id="comment">
     			{% for item in commentlist %}
         		<tr>
           			<td>{{item[0]}}say: {{item[1]}} at {{item[2]}}</td>	
         		</tr>
-                        {% endfor %}
-          </table>
+                        {% endfor %}	       
+  	    </table>
+                
+    			<div class="form-group">
+    				<label for="exampleInputEmail1">Make some comments here.</label>
+    				<input type="text" id="commentContent" class="form-control" placeholder="Enter comments"/>
+  		        </div>
+                        <button type="button" class="btn btn-success" onclick="$.ajax({url:'/comments/add',type:'POST',data:{comment:$('#commentContent').val(),eventid:{{eventid}}}})">submit comment</button>
     		
 
   			
@@ -85,13 +91,6 @@
 			
 			<br/>
 			<br/>
-			
-  			<table class="table" id="commentTable">
-      			<tbody>
-        		
-        
-      			</tbody>
-    		</table>
     		
 		</form>
   </body>
