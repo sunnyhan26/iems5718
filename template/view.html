@@ -65,7 +65,7 @@
 				  <div class="form-group">
     				<label for="exampleInputEmail1">Make some comments here.</label>
     				<input type="text" id="commentContent" class="form-control" placeholder="Enter comments"/>
-            <button class="btn btn-success" onClick=submitComment()>Submit comment</button>
+            <button class="btn btn-success" onclick="$.ajax({url:'/comments/add',type:'POST',data:{comment:$('#commentContent').val(),eventid:{{eventid}}}})">Submit comment</button>
   				</div>
   			</table>
     			<table class="table" id="comment">
