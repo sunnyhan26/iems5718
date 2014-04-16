@@ -2,7 +2,8 @@ var count=1;
 var coordinate='';
 var time=["","",""];
 var wrong=[0,0,0,0];
-
+var flag;
+var min=0;
 function initialize() {
   var mapOptions = {
     center: new google.maps.LatLng(22.413533,114.21031),
@@ -89,14 +90,13 @@ function setTime() {
 	event.preventDefault();
 	var content=$('#selector').val();
 	var divIdName;
- 	divIdName="my"+count+"Div";  
- 	
-  	$('#timeContent').append(' <div id='+divIdName+'>'+content+'<a href="#" onclick="deleteTime(\'' + divIdName + '\')">   Delete</a></div>');
-        time[(count-1)]=content;
-  	count++;
-  	var flag=count-min;
-  	if(flag==4)
-  		$("#confirm_date").attr("disabled", "disabled");
+ 	divIdName="my"+count+"Div";
+  $('#timeContent').append(' <div id='+divIdName+'>'+content+'<a href="#" onclick="deleteTime(\'' + divIdName + '\')">   Delete</a></div>');
+  count++;
+  flag=count-min;
+  alert(flag);
+  if(flag==4)
+  	$("#confirm_date").attr("disabled", "disabled");
   	
 }
 
