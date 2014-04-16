@@ -56,4 +56,4 @@ app = webapp2.WSGIApplication([
     ('/home', HomePage),
     ('/home/joinedeventlist', JoinedEventPage),
     ('/home/myeventlist', MyEventPage)
-    ], debug=True)
+    ], debug=False)

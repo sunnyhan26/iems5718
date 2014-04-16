@@ -109,4 +109,4 @@ app = webapp2.WSGIApplication([
     ('/event/view', ViewEvent),  
     ('/event/submit', SubmitEvent),
     ('/event/submitvote', SubmitVote),
-    ], debug=True)
+    ], debug=False)
