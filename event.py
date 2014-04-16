@@ -1,6 +1,7 @@
 import webapp2
 import event_func
 import user_func
+import comment_func
 from google.appengine.api import users
 
 import os
@@ -49,12 +50,6 @@ class SubmitVote(webapp2.RequestHandler):
 		voteEvent(eventid, userid, voteList)
 		self.response.write('Vote saved successfully!')
 
-def getCommentList():
-	commentlist=[]
-	commentlist.append(["1","2","3"])
-	commentlist.append(["1","2","3"])
-	return commentlist
-
 def listCountNonNone(list):
 	count = 0
 	for i in list:
@@ -75,7 +70,7 @@ class ViewEvent(webapp2.RequestHandler):
 		length = listCountNonNone(datelist)
 		votelist = event_func.getVoteList(int(eventid), None)
 		chosenlist = event_func.getVoteList(int(eventid), user.user_id()) 
-		commentlist = getCommentList(eventid)
+		commentlist = comment_func.getCommentList(eventid)
 		template_values = {
 			'eventname': event.name,
 			'location': event.location,
@@ -86,7 +81,7 @@ class ViewEvent(webapp2.RequestHandler):
 			'chosenlist': chosenlist,
 			'commentlist': commentlist,
 			'lat':event.lagitude,
-			'long':event.longitude
+			'long':event.longitude,
 			'eventid':eventid
 		}
 		if event.ownerid == user.user_id():
