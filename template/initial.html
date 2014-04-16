@@ -20,11 +20,11 @@
     	<form role="form" id="table">
 		<div class="form-group" name="step1">
     			<label for="exampleInputEmail1">Step1: Set the event's name</label>
-    			<input type="text" class="form-control" id="input-name" placeholder="Enter event's name" />
+    			<input type="text" class="form-control" id="input-name" placeholder="Enter event's name" value="{{eventname}}"/>
   		</div>
                 <div class="form-group" name="step2">
     			<label for="exampleInputEmail1">Step2: Make some introduction here.</label>
-    			<input type="text" id="introduction" class="form-control" placeholder="Enter introduction"/>
+    			<input type="text" id="introduction" class="form-control" placeholder="Enter introduction" value="{{introduction}}"/>
   		</div>
 		<br/>
 		<div class="form-group" name="step3">
@@ -35,7 +35,11 @@
 				<br/>
 				<p>(No more than 3 choices)</p>
 				<br/>
-				<div id="timeContent"></div>
+				<div id="timeContent">
+           {% for i in range (0, length) %}
+          <span> {{datelist[i]}} </span> &nbsp;&nbsp;&nbsp;<span>Number of Votes: {{ votelist[i]}}</span><br/>
+				   {% endfor %}
+        </div>
 			</form>
 			<br/>
 		</div>

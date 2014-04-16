@@ -28,8 +28,8 @@
 			<div class="form-group">
     			<label for="exampleInputEmail1">Event's time</label>
           <div id="timeContent">
-            {% for i in range (0, {{length}}) %}
-            <input type="radio"/> {{dateObject[i]}}  &nbsp;&nbsp;&nbsp;<span>Number of Votes: {{ votelist[i]}}</span><br/>
+           {% for i in range (0, length) %}
+             <input type="radio"/> {{datelist[i]}}  &nbsp;&nbsp;&nbsp;<span>Number of Votes: {{ votelist[i]}}</span><br/>
 				   {% endfor %}  
 				  </div>
 			  <br/>			
