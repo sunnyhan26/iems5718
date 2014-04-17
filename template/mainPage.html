@@ -2,72 +2,104 @@
 {% autoescape true %}
 <html lang="en">
 <head>
+  
 	<link rel="stylesheet" href="/css/datepicker.css" type="text/css" />
-    <link rel="stylesheet" href="/css/bootstrap.css" type="text/css"/>  
-    <title>Welcome Page</title>
+  <link rel="stylesheet" href="/css/bootstrap.css" type="text/css"/>  
+  <link href="http://netdna.bootstrapcdn.com/twitter-bootstrap/2.3.0/css/bootstrap-combined.min.css" rel="stylesheet">	 
+  <title>Welcome Page</title>
 	<script type="text/javascript" src="/js/jquery.js"></script>
+
 	<script type="text/javascript" src="/js/datepicker.js"></script>
-    <script type="text/javascript" src="/js/eye.js"></script>
-    <script type="text/javascript" src="/js/utils.js"></script>
-    <script type="text/javascript" src="/js/layout.js?ver=1.0.2"></script>
-    <script type="text/javascript" src="/js/main_js.js"></script>
-    <link rel="stylesheet" href="/css/project.css" type="text/css"/>             
+  <script type="text/javascript" src="/js/eye.js"></script>
+  <script type="text/javascript" src="/js/utils.js"></script>
+  <script type="text/javascript" src="/js/layout.js?ver=1.0.2"></script>
+  <script type="text/javascript" src="/js/main_js.js"></script>
+  
+  <link rel="stylesheet" href="/css/project.css" type="text/css"/>    
+  
 </head>
 
 <body>
-<h1 align=center>Social Network Name</h1>
-  <h2 align=center>Welcome Jizhao <a href='{{logoutlink}}'>Sign out</a></h2>
-
-<h3 align=center>All Events</h3>
-<table width="100%" height="100%" border=0>
-
-	<tr height="400"  valign=top>
-		<td width="20%" align=center style="border:0"><p id="date"></p>
-		</td>
-		
-		<td width="60%" valign=top style="border:1px solid black;">
-			<table class="table" width="100%">
-				<thead>
-					<tr class="info">
-					<th>Title</th><th>Time</th><th>Location</th>
+  <div id="fb-root"></div>
+  <script>(function(d, s, id) {
+  var js, fjs = d.getElementsByTagName(s)[0];
+  if (d.getElementById(id)) return;
+  js = d.createElement(s); js.id = id;
+  js.src = "//connect.facebook.net/zh_CN/all.js#xfbml=1";
+  fjs.parentNode.insertBefore(js, fjs);
+  }(document, 'script', 'facebook-jssdk'));
+  </script>
+  
+  <div id="header">  
+    <div id="headertext">
+    <span style="text-align:center">Welcome, userName!</span>
+    &nbsp;&nbsp;&nbsp;
+    <div class="fb-share-button" data-href="https://www.facebook.com/sharer/sharer.php?u=http://www.google.com" data-width="10px" data-type="button_count"></div>
+    &nbsp;&nbsp;&nbsp;
+    <span> <a href='{{logoutlink}}'>Sign out</a></span>
+    </div>
+  </div>
+  
+  <h1 align=center>Event world</h1>
+  <hr>
+  
+  
+  
+  <div id="navibar" class="btn-group-lg" >
+    <button type="button" class="btn btn-primary" onclick="{location.href='/home/myeventlist'}">My events</button>
+	  <button type="button" class="btn btn-primary" onclick="{location.href='/home/joinedeventlist'}">Joined events</button>
+	  <button type="button" class="btn btn-primary" onclick="{location.href='/event/edit'}">Initial an event</button>   
+  </div>
+  
+  <br/>
+  <br/>
+  
+  <div id="introduction">
+    <div><strong><em>Forum</em></strong></div>
+      <p><small>All of the brilliant daily T shirt designs and ideas that appear on TeeFury are worthy of their own conversations. That's why our forum is here to facilitate that conversation and sense of community that TeeFury members make a special part of. This is also the place to discuss opinion about designs and other matters. Have a particular idea about ladies T shirts or which geek shirt is printed too much? Feel free to start a forum thread and we will definitely be listening!</small></p>
+  </div>
+  
+  <br/>
+  
+  <table width="100%" height="100%" border=0>
+    <tr height="400"  valign=top>
+      <td width="20%"></td>
+		  <td width="60%" valign=top >
+			  <table class="table" width="100%" id="page">
+				  <thead>
+					<tr class="active">
+					  <th>Title</th><th>Time</th><th>Location</th>
 					</tr>
-				</thead>
-				<tbody id="eventContent">
+				  </thead>
+				  <tbody id="eventContent">
 				{% for eventObject in eventlist %}
           <tr><td><a href="/event/view?eventid={{eventObject[3]}}">{{eventObject[0]}}</a></td><td>{{eventObject[2]}}</td><td>{{eventObject[1]}}</td></tr>
 				{% endfor %}
 				</tbody>
 				
-			</table>
-		</td>
+			  </table>
+		  </td>
 		
-		<td width="5%">
-		</td>
-		
-		<td width="10%" align=center style="border:1px solid black;">
-			<table class="table" width="100%">
+		  <td width="20%">
+		  </td>
+	  </tr>
+  </table>
+  <table id="userTable" class="table" >
 				<thead>
-					<tr class="info">
+					<tr class="active">
 						<th align=center>My Circle</th>
 					</tr>
 				</thead>
+        <tbody>
 				{% for user in userlist %}
-        <tr><td>{{user}}</td></tr>
+        		<tr><td>{{user}}</td></tr>
 				{% endfor %}
-			</table>
-		</td>
-		
-		<td width="5%">
-		</td>
-	</tr>
-</table>
+        </tbody>
+	</table>
+  <p id="date"></p>
+	<hr>
+  <footer align=center>© 2014 IEMS5718-Group13. All rights reserved.</footer>
 
-<div style="left:40%;position:absolute;bottom:8%">
-	
-	<button type="button" class="btn btn-success" onclick="{location.href='/home/myeventlist'}">My events</button>
-	<button type="button" class="btn btn-success" onclick="{location.href='/home/joinedeventlist'}">Joined events</button>
-	<button type="button" class="btn btn-success" onclick="{location.href='/event/edit'}">Initial an event</button>
-</div>
 
 </body>
 </html>

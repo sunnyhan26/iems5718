@@ -82,7 +82,8 @@ class ViewEvent(webapp2.RequestHandler):
 			'commentlist': commentlist,
 			'lat':event.lagitude,
 			'long':event.longitude,
-			'eventid':eventid
+			'eventid':eventid,
+      'userid':users.get_current_user().user_id()
 		}
 		if event.ownerid == user.user_id():
 			template = JINJA_ENVIRONMENT.get_template('/template/initial.html')

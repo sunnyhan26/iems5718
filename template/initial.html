@@ -15,8 +15,28 @@
     
   </head>
   <body>
-      
+    <div id="fb-root"></div>
+  <script>(function(d, s, id) {
+  var js, fjs = d.getElementsByTagName(s)[0];
+  if (d.getElementById(id)) return;
+  js = d.createElement(s); js.id = id;
+  js.src = "//connect.facebook.net/zh_CN/all.js#xfbml=1";
+  fjs.parentNode.insertBefore(js, fjs);
+  }(document, 'script', 'facebook-jssdk'));
+  </script>
+    <div id="header">  
+      <div id="headertext">
+        <span style="text-align:center">Welcome, userName!</span>
+        &nbsp;&nbsp;&nbsp;
+      <div class="fb-share-button" data-href="https://www.facebook.com/sharer/sharer.php?u=http://www.google.com" data-width="10px" data-type="button_count"></div>
+        &nbsp;&nbsp;&nbsp;
+      <span> <a href='{{logoutlink}}'>Sign out</a></span>
+    </div>
+  </div>
+    <div class="container">
   	<h1 id="title">Initial an Event</h1>
+      <hr>
+      <br/>
     	<form role="form" id="table">
 		<div class="form-group" name="step1">
     			<label for="exampleInputEmail1">Step1: Set the event's name</label>
@@ -31,7 +51,7 @@
     			<label for="exampleInputEmail1">Step3: Set the time</label>
     			<form>
 				<input type="date"  id="selector"  name="user_date"/>
-				<button class="btn btn-success" onClick="setTime()" id="confirm_date">OK</button>
+				<button class="btn btn-primary" onClick="setTime()" id="confirm_date">OK</button>
 				<br/>
 				<p>(No more than 3 choices)</p>
 				<br/>
@@ -55,9 +75,9 @@
 			
   		</table>
                 <div id="wrong" style="display:none;color:red;">wrong!</div>
-  		<button type="button" class="btn btn-success" id="submitEvent" >Submit the Event</button>
+  		<button type="button" class="btn btn-primary" id="submitEvent" >Submit the Event</button>
 		&nbsp;&nbsp;&nbsp;
-		<button type="button" class="btn btn-success" onclick="{location.href='/home'}">Back to main page</button>
+		<button type="button" class="btn btn-primary" onclick="{location.href='/home'}">Back to main page</button>
 		<br/>
 		<br/>
   		<table class="table" id="commentTable">
@@ -74,6 +94,8 @@
 		
       
       
-      
+    </div>    
+    <hr>
+  <footer align=center>© 2014 IEMS5718-Group13. All rights reserved.</footer>
   </body>
 </html>

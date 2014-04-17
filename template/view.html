@@ -8,16 +8,35 @@
     <title>Check Event</title>
     <script type="text/javascript" src="/js/jquery.js"></script>
     <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCbYzvg0aGCPVxWr7x7ou13ObTbq-roTiA&sensor=false&libraries=places"></script>
-	<script type="text/javascript" src="/js/view.js"></script>
+	  <script type="text/javascript" src="/js/view.js"></script>
     
   </head>
   <body>
-  	
+  	    <div id="fb-root"></div>
+  <script>(function(d, s, id) {
+  var js, fjs = d.getElementsByTagName(s)[0];
+  if (d.getElementById(id)) return;
+  js = d.createElement(s); js.id = id;
+  js.src = "//connect.facebook.net/zh_CN/all.js#xfbml=1";
+  fjs.parentNode.insertBefore(js, fjs);
+  }(document, 'script', 'facebook-jssdk'));
+  </script>
+    <div id="header">  
+      <div id="headertext">
+        <span style="text-align:center">Welcome, userName!</span>
+        &nbsp;&nbsp;&nbsp;
+      <div class="fb-share-button" data-href="https://www.facebook.com/sharer/sharer.php?u=http://www.google.com" data-width="10px" data-type="button_count"></div>
+        &nbsp;&nbsp;&nbsp;
+      <span> <a href='{{logoutlink}}'>Sign out</a></span>
+    </div>
+  </div>
+    <div class="container">
   	<h1 id="title">Check the Event</h1>
-    	<form role="form" id="table">
+    	<hr>
 			<div class="form-group">
     			<label for="exampleInputEmail1">Event's name</label>
-        <div>{{eventname}}</div>
+        
+        <div style="border-color:#000">{{eventname}}</div>
   			</div>
 			<br/>
 			<div class="form-group">
@@ -27,31 +46,36 @@
   			<br/>
 			<div class="form-group">
     			<label for="exampleInputEmail1">Event's time</label>
-          <div id="eventId">{{eventid}}</div>
+        <div style="display:none" id="eventId">{{eventid}}</div>
+        <div style="display:none" id="userid">{{userid}}</div>
           <div id="timeContent">
            {% for i in range (0, length) %}
-            <input type="radio" id="radio{{i}}Name"/> {{datelist[i]}}  &nbsp;&nbsp;&nbsp;<span>Number of Votes: {{ votelist[i]}}</span><br/>
+            <input type="radio" id="radio{{i}}Name"/> {{datelist[i]}}  &nbsp;&nbsp;&nbsp;<span>Number of Current Votes: {{ votelist[i]}}</span><br/>
 				   {% endfor %}  
 				  </div>
 			  <br/>			
   		</div>
   			
+  			
+  			
+  			
   			<div class="form-group">
     			<label for="exampleInputEmail1">Event's location</label>
+                        <div>{{location}}</div>
   			</div>
-  			<div id="map-canvas" style="height:250px;width:300px;"></div>
+  			<div id="map-canvas"></div>
                         <script>
                         
                             function initialize() {
                                 var mapOptions = {
-                                        center: new google.maps.LatLng({{lagitude}},{{longitude}}),
+                                        center: new google.maps.LatLng({{lat}},{{long}}),
                                         zoom: 17
                                 };
                                 var map = new google.maps.Map(document.getElementById('map-canvas'),mapOptions);
  
                                 var marker = new google.maps.Marker({
                                     map: map,
-                                    position: new google.maps.LatLng({{lagitude}},{{longitude}}),
+                                    position: new google.maps.LatLng({{lat}},{{long}}),
                                     draggable: true
                                 });
                              }
@@ -61,22 +85,22 @@
     	
     		<br/>
     		<br/>
-        <table>
-				  <div class="form-group">
+       
+       
+       
+       <table class="table" id="comment">
+    			{% for item in commentlist %}
+        	<tr>
+         		<td>{{item[0]}}say: {{item[1]}} at {{item[2]}}</td>	
+        	</tr>
+           {% endfor %}	       
+  	    </table>
+                
+    			<div class="form-group">
     				<label for="exampleInputEmail1">Make some comments here.</label>
     				<input type="text" id="commentContent" class="form-control" placeholder="Enter comments"/>
-            <button class="btn btn-success" onclick="$.ajax({url:'/comments/add',type:'POST',data:{comment:$('#commentContent').val(),eventid:{{eventid}}}})">Submit comment</button>
-  				</div>
-  			</table>
-    			<table class="table" id="comment">
-    			{% for item in commentlist %}
-        		<tr>
-          			<td>{{item[0]}}say: {{item[1]}} at {{item[2]}}</td>	
-        		</tr>
-                        {% endfor %}
-          </table>
-    		
-
+  		    </div>
+            <button type="button" class="btn btn-success" onclick="$.ajax({url:'/comments/add',type:'POST',data:{comment:$('#commentContent').val(),eventid:{{eventid}}}})">submit comment</button>
   			
   		<button type="button" class="btn btn-success" onclick="joinEvent()">Join Event</button>
 			
@@ -86,14 +110,9 @@
 			
 			<br/>
 			<br/>
-			
-  			<table class="table" id="commentTable">
-      			<tbody>
-        		
-        
-      			</tbody>
-    		</table>
     		
-		</form>
+		
+    </div>
+    <footer align=center>© 2014 IEMS5718-Group13. All rights reserved.</footer>
   </body>
 </html>

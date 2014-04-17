@@ -1,3 +1,64 @@
 .headright{
 	text-align:right;
 }
+body {
+  background:url(../images/twitter.jpg);
+}
+#header{
+  background:white;
+  height:30px;
+  padding:4px;
+  text-align:right;
+  font-weight: bold;
+  font-style:oblique;
+  
+}
+#headertext{
+  margin-right:10%;
+}
+#date{
+  position:absolute;
+  text-align:left;
+  width:10%;
+  top:130px;
+  left:2%;
+}
+#userTable{
+  width:10%;
+  height:400;
+  position:absolute;
+  text-align:right;
+  top:130px;
+  right:5%;
+}
+#userTable td{
+  height:60px;
+  width:100%;
+  vertical-align:middle;
+}
+#introduction{
+  width:60%;  
+  margin:0 auto;
+}
+#navibar{
+  margin:0 auto;
+  width:60%;  
+  margin-left:20%;
+}
+#navibar ul{
+  width:100%;
+  display: table;
+  margin: 0 auto; 
+}
+
+#navibar li{
+  margin:0px auto;
+}
+#naviul{
+  font-size:24px;
+}
+h1{
+color: #fafafa;
+letter-spacing: 0;
+text-shadow: 0px 1px 0px #999, 0px 2px 0px #888, 0px 3px 0px #777, 0px 4px 0px #666, 0px 5px 0px #555, 0px 6px 0px #444, 0px 7px 0px #333, 0px 8px 7px #001135 
+}

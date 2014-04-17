@@ -1,83 +1,5 @@
 var count=1;
 var coordinate='';
-var chosenList=new Array();
-function initialize() {
-  var mapOptions = {
-    center: new google.maps.LatLng(),
-    zoom: 17
-  };
-  var map = new google.maps.Map(document.getElementById('map-canvas'),
-    mapOptions);
- 
- var marker = new google.maps.Marker({
-    map: map,
-    position: new google.maps.LatLng(22.413533,114.21031),
-    draggable: true
-  });
-
-  var input = /** @type {HTMLInputElement} */(
-      document.getElementById('pac-input'));
-
-  //var types = document.getElementById('type-selector');
-  map.controls[google.maps.ControlPosition.TOP_LEFT].push(input);
-  //map.controls[google.maps.ControlPosition.TOP_LEFT].push(types);
-
-  var autocomplete = new google.maps.places.Autocomplete(input);
-  autocomplete.bindTo('bounds', map);
-  autocomplete.setTypes([]);
-
-  var infowindow = new google.maps.InfoWindow();
-  var marker = new google.maps.Marker({
-    map: map,
-    anchorPoint: new google.maps.Point(0, -29)
-  });
-
-  google.maps.event.addListener(autocomplete, 'place_changed', function() {
-    infowindow.close();
-    marker.setVisible(false);
-    var place = autocomplete.getPlace();
-    if (!place.geometry) {
-      return;
-    }
-
-    // If the place has a geometry, then present it on a map.
-    if (place.geometry.viewport) {
-      map.fitBounds(place.geometry.viewport);
-    } else {
-      map.setCenter(place.geometry.location);
-      map.setZoom(17);  // Why 17? Because it looks good.
-    }
-    marker.setPosition(place.geometry.location);
-    marker.setVisible(true);
-    
-    coordinate=place.geometry.location.lat()+','+place.geometry.location.lng();
-    alert(coordinate);
-
-    var address = '';
-    if (place.address_components) {
-      address = [
-        (place.address_components[0] && place.address_components[0].short_name || ''),
-        (place.address_components[1] && place.address_components[1].short_name || ''),
-        (place.address_components[2] && place.address_components[2].short_name || '')
-      ].join(' ');
-    }
-
-    infowindow.setContent('<div><strong>' + place.name + '</strong><br>' + address);
-    infowindow.open(map, marker);
-  });
-
-  // Sets a listener on a radio button to change the filter type on Places
-  // Autocomplete.
-  /*function setupClickListener(id, types) {//
-    var radioButton = document.getElementById(id);
-    google.maps.event.addDomListener(radioButton, 'click', function() {
-      autocomplete.setTypes(types);
-    });*/
-   
-  }
- //google.maps.event.addDomListener(window, 'load', initialize);
-
-
 
 var n;
 var min=0;
@@ -104,50 +26,37 @@ function setTime() {
   		$("#confirm_date").attr("disabled", "disabled");
   	
 }
-
+var chosenList=new Array(3);
 function saveVote(){
-	i=0
-	while(i<3){
-		var radioIdName="radio"+i+"Name";
-		if($('#'+radioIdName).length>0){
-			if($('input:radio[name=radioIdName]:checked').val()==null)
-				chosenList[i]=0;
-			else
-				chosenList[i]=1;
-        alert("select");
-		}
+  var i=0;
+  while (i<3){
+    var radioName="radio"+i+"Name";
+    //alert(radioName);
+    if($("#"+radioName).length>0){
+      var radioObj = document.getElementById(radioName);
+      if(radioObj.checked){
+        chosenList[i]=1;
+      }
+      else{
+        chosenList[i]=0;
+      }
+    }
     i++;
-	}
+  }  
 }
 function joinEvent(){
-  saveVote();
-  $.ajax({
-    				url: '/event/submitVote', 
- 						type: "POST",
- 						data: {
- 							VoteList:chosenList,
-              eventid:$("#eventId").val(),
- 						}
-	});
+    saveVote();
+     $.ajax({
+    		url: "/event/submitvote", 
+ 				type: "POST",
+ 				data: {
+         VoteList:chosenList,
+         eventid:$("#eventid").val(),
+          userid:$("#userid").val()
+        }
+      });
+      //alert(chosenList);
 }
-function submitComment() {
-	event.preventDefault();
-	var comment=$('#comment').val();
-	$('#commentTable').append('<tr><td>'+comment+'</td><td>WANG WEI</td></tr>');
-	$('#commentTable tr:last').after('<tr></tr>');
-	$.ajax({
-    				url: '/comments/add', 
- 						type: "POST",
- 						data: {
- 							comment:$("#commentContent").val(),
- 		          eventid:$("#eventId").val(),
- 						}
-	});
-	//$('#commentTable').append('<tr><td>'+comment+'</td><td>WANG WEI</td></tr>');
-	//$('#commentTable tr:last').after('<tr></tr>');
-}
-
-
 $(document).ready(function() {
 	var now = new Date();
 	var day = ("0" + now.getDate()).slice(-2);
