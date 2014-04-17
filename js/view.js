@@ -1,9 +1,9 @@
 var count=1;
 var coordinate='';
-
+var chosenList=new Array();
 function initialize() {
   var mapOptions = {
-    center: new google.maps.LatLng(22.413533,114.21031),
+    center: new google.maps.LatLng(),
     zoom: 17
   };
   var map = new google.maps.Map(document.getElementById('map-canvas'),
@@ -105,6 +105,31 @@ function setTime() {
   	
 }
 
+function saveVote(){
+	i=0
+	while(i<3){
+		var radioIdName="radio"+i+"Name";
+		if($('#'+radioIdName).length>0){
+			if($('input:radio[name=radioIdName]:checked').val()==null)
+				chosenList[i]=0;
+			else
+				chosenList[i]=1;
+        alert("select");
+		}
+    i++;
+	}
+}
+function joinEvent(){
+  saveVote();
+  $.ajax({
+    				url: '/event/submitVote', 
+ 						type: "POST",
+ 						data: {
+ 							VoteList:chosenList,
+              eventid:$("#eventId").val(),
+ 						}
+	});
+}
 function submitComment() {
 	event.preventDefault();
 	var comment=$('#comment').val();
@@ -115,32 +140,13 @@ function submitComment() {
  						type: "POST",
  						data: {
  							comment:$("#commentContent").val(),
- 		
+ 		          eventid:$("#eventId").val(),
  						}
 	});
 	//$('#commentTable').append('<tr><td>'+comment+'</td><td>WANG WEI</td></tr>');
 	//$('#commentTable tr:last').after('<tr></tr>');
-};
-var submitForm=function (){
-    if($('#input-loc')===''){
-        alert("location cannot be null!");
-    }
-    else{
-       $.ajax({url:'/event/submit',
-       	type:'POST',
-    	data: {name:$("#input-name").val(), 
-    			my1Time:$("#my1Div").val(), 
-    			my2Time:$("#my2Div").val(), 
-    			my3Time:$("#my3Div").val(), 
-    			location:$("#pac-input").val(), 
-    			coordinate:coordinate}  // simulated server delay
-}).done(function (bal) {
-    alert(bal);
-}).fail(function (jqXHR, textStatus) {
-    alert("Request failed: " + textStatus);
-});
-    }
-};
+}
+
 
 $(document).ready(function() {
 	var now = new Date();
@@ -149,6 +155,6 @@ $(document).ready(function() {
 	var today = now.getFullYear()+"-"+(month)+"-"+(day) ;
 	$('#selector').val(today);
         google.maps.event.addDomListener(window, 'load', initialize);
-        $('#submitEvent').click(submitForm);
+        //$('#submitEvent').click(submitForm);
 	
 });

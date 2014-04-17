@@ -96,6 +96,7 @@ class EditEvent(webapp2.RequestHandler):
 
 		template_values = {
 			'user': user,
+      'length':0
 		}
 		template = JINJA_ENVIRONMENT.get_template('/template/initial.html')
 		self.response.write(template.render(template_values))
