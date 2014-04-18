@@ -46,7 +46,7 @@
   			<br/>
 			<div class="form-group">
     			<label for="exampleInputEmail1">Event's time</label>
-        <div style="display:none" id="eventId">{{eventid}}</div>
+        <input type="text" style="display:none" value="{{eventid}}" id="eventId"/>
         <div style="display:none" id="userid">{{userid}}</div>
           <div id="timeContent">
            {% for i in range (0, length) %}
@@ -98,10 +98,10 @@
                 
     			<div class="form-group">
     				<label for="exampleInputEmail1">Make some comments here.</label>
+            <button type="button" class="btn btn-success" onclick="submitComment">Submit Comment</button>
     				<input type="text" id="commentContent" class="form-control" placeholder="Enter comments"/>
   		    </div>
-            <button type="button" class="btn btn-success" onclick="$.ajax({url:'/comments/add',type:'POST',data:{comment:$('#commentContent').val(),eventid:{{eventid}}}})">submit comment</button>
-  			
+            
   		<button type="button" class="btn btn-success" onclick="joinEvent()">Join Event</button>
 			
 			&nbsp;&nbsp;&nbsp;

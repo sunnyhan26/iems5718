@@ -81,11 +81,14 @@ function initialize() {
 function deleteTime(divNum) {
 	event.preventDefault();
 	$('#'+divNum).remove();
-	min++;
+	flag--;
 	if(flag<4)
   		$("#confirm_date").removeAttr('disabled');
 }
-
+function test(){
+  var test=$('#selector').value;
+  alert(test);
+}
 function setTime() {
 	event.preventDefault();
 	var content=$('#selector').val();
@@ -95,8 +98,8 @@ function setTime() {
   time[(count-1)]=content;
   count++;
   flag=count-min;
-  alert(divIdName);
-  if(flag==4)
+  alert(flag);
+  if(flag>=4)
   	$("#confirm_date").attr("disabled", "disabled");
   	
 }

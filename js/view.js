@@ -40,21 +40,42 @@ function saveVote(){
       else{
         chosenList[i]=0;
       }
-    }
+    }else
+      chosenList[i]=0;
     i++;
   }  
 }
+function submitComment(){
+  event.preventDefault();
+	var comment=$('#commentContent').val();
+	$('#commentTable').append('<tr><td>'+comment+'</td><td>WANG WEI</td></tr>');
+	$('#commentTable tr:last').after('<tr></tr>');
+  $.ajax({
+    url:'/comments/add',
+    type:'POST',
+    data:{
+      comment:$('#commentContent').val(),
+      eventid:$("#eventId").val(),
+    }
+  });
+}
 function joinEvent(){
-    saveVote();
-     $.ajax({
+  saveVote();
+  var firstVote=chosenList[0];
+  var secVote=chosenList[1];
+  var thirdVote=chosenList[2];
+  alert(firstVote);
+  $.ajax({
     		url: "/event/submitvote", 
  				type: "POST",
  				data: {
-         VoteList:chosenList,
-         eventid:$("#eventid").val(),
-          userid:$("#userid").val()
+          firstVote:firstVote,
+          secVote:secVote,
+          thirdVote:thirdVote,
+          eventid:$("#eventId").val(),
         }
       });
+  alert("Successfully join this event!");
       //alert(chosenList);
 }
 $(document).ready(function() {

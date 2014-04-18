@@ -48,10 +48,11 @@
   		</div>
 		<br/>
 		<div class="form-group" name="step3">
-    			<label for="exampleInputEmail1">Step3: Set the time</label>
+      <label for="exampleInputEmail1">Step3: Set the time</label><button onclick=test()>test</button>
     			<form>
-				<input type="date"  id="selector"  name="user_date"/>
-				<button class="btn btn-primary" onClick="setTime()" id="confirm_date">OK</button>
+				<input type="datetime-local"  id="selector"  name="user_date"/>
+        
+				<button class="btn btn-primary" onClick="setTime()" id="confirm_date">Add time</button>
 				<br/>
 				<p>(No more than 3 choices)</p>
 				<br/>
