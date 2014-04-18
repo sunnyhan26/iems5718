@@ -4,7 +4,7 @@ class Comment(ndb.Model):
 	user = ndb.UserProperty(auto_current_user=True)
 	content = ndb.TextProperty()
 	time = ndb.DateTimeProperty(auto_now_add=True)
-	eventid = ndb.IntegerProperty()
+	eventid = ndb.StringProperty()
 
 def addComment(eventid, content):
 	comment = Comment(eventid=eventid,content=content)
@@ -21,7 +21,7 @@ def addComment(eventid, content):
             eventidlist.append(eventid)
 
 def getCommentList(eid):
-	que = Comment.query(Comment.eventid==int(eid))
+	que = Comment.query(Comment.eventid==eid)
 	result = que.fetch()
 	commentlist=[]
 #commentlist=result[0]
