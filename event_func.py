@@ -17,9 +17,9 @@ class Event(ndb.Model):
 
 class EventVote(ndb.Model):
 	userid = ndb.StringProperty()
-	my1Vote = ndb.BooleanProperty()
-	my2Vote = ndb.BooleanProperty()
-	my3Vote = ndb.BooleanProperty()
+	my1Vote = ndb.IntegerProperty()
+	my2Vote = ndb.IntegerProperty()
+	my3Vote = ndb.IntegerProperty()
 
 def permitted():
 	return True
