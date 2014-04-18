@@ -47,7 +47,7 @@ class SubmitVote(webapp2.RequestHandler):
 		userid = users.get_current_user().user_id()
 		eventid = self.request.get('eventid')
 		voteList = self.request.get('voteList')
-		voteEvent(eventid, userid, voteList)
+		event_func.voteEvent(eventid, userid, voteList)
 		self.response.write('Vote saved successfully!')
 
 def listCountNonNone(list):
