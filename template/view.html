@@ -3,13 +3,23 @@
   <head>
 	<meta name="viewport" content="initial-scale=1.0, user-scalable=no">
     <meta charset="utf-8">
+    <script src="/js/jquery.js" type="text/javascript"></script>
+    <script src="/js/jquery.ui.draggable.js" type="text/javascript"></script>
+    <script src="/js/jquery.alerts.js" type="text/javascript"></script>
+    <link href="/css/jquery.alerts.css" rel="stylesheet" type="text/css" media="screen" />
+    
+    <script src="/js/jquery-1.10.2.js"></script>
+    <link href="/css/bootstrap.min.css" rel="stylesheet" type="text/css" />
+    <script src="/js/bootstrap.min.js"></script>
   	<link rel="stylesheet" href="/css/bootstrap.css" type="text/css"/>  
   	<link rel="stylesheet" href="/css/view.css" type="text/css" />
     <title>Check Event</title>
     <script type="text/javascript" src="/js/jquery.js"></script>
     <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCbYzvg0aGCPVxWr7x7ou13ObTbq-roTiA&sensor=false&libraries=places"></script>
-	  <script type="text/javascript" src="/js/view.js"></script>
-    
+	  <script src="/js/bootstrap-dialog.js"></script>
+    <script src="/js/bootbox.js"></script>
+    <script type="text/javascript" src="/js/view.js"></script>
+    <link href='http://fonts.googleapis.com/css?family=Racing+Sans+One' rel='stylesheet' type='text/css'>
   </head>
   <body>
   	    <div id="fb-root"></div>
@@ -32,39 +42,39 @@
   </div>
     <div class="container">
   	<h1 id="title">Check the Event</h1>
-    	<hr>
-			<div class="form-group">
-    			<label for="exampleInputEmail1">Event's name</label>
-        
-        <div style="border-color:#000">{{eventname}}</div>
-  			</div>
+    <br/>
+	  <div class="form-group">
+      <label for="exampleInputEmail1" style="font-size:24px;font-family: 'Racing Sans One', cursive;border-bottom: 1px solid #000;">1. Event's name</label>  
+      <br/>
+      <div style="border-color:#000">{{eventname}}</div>
+  		</div>
 			<br/>
 			<div class="form-group">
-    			<label for="exampleInputEmail1">Event's Description</label>
+    		<label for="exampleInputEmail1" style="font-size:24px;font-family: 'Racing Sans One', cursive;border-bottom: 1px solid #000;">2. Event's Description</label>
+        <br/>
         <div>{{introduction}}</div>
-  			</div>
-  			<br/>
+  		</div>
+  		<br/>
 			<div class="form-group">
-    			<label for="exampleInputEmail1">Event's time</label>
+    		<label for="exampleInputEmail1" style="font-size:24px;font-family: 'Racing Sans One', cursive;border-bottom: 1px solid #000;">3. Event's time</label>
+        <br/>
         <input type="text" style="display:none" value="{{eventid}}" id="eventId"/>
         <div style="display:none" id="userid">{{userid}}</div>
-          <div id="timeContent">
+        <div id="timeContent">
            {% for i in range (0, length) %}
-            <input type="radio" id="radio{{i}}Name"/> {{datelist[i]}}  &nbsp;&nbsp;&nbsp;<span>Number of Current Votes: {{ votelist[i]}}</span><br/>
+            <input type="checkbox" id="radio{{i}}Name"/> {{datelist[i]}}  &nbsp;&nbsp;&nbsp;<span>Number of Current Votes: {{ votelist[i]}}</span><br/>
 				   {% endfor %}  
-				  </div>
+				</div>
 			  <br/>			
   		</div>
-  			
-  			
-  			
-  			
-  			<div class="form-group">
-    			<label for="exampleInputEmail1">Event's location</label>
-                        <div>{{location}}</div>
-  			</div>
-  			<div id="map-canvas"></div>
-                        <script>
+  		<div class="form-group">
+    	  <label for="exampleInputEmail1" style="font-size:24px;font-family: 'Racing Sans One', cursive;border-bottom: 1px solid #000;">4. Event's location</label>
+        <br/>             
+        <div>{{location}}</div>
+  	  </div>
+      <br/>
+  		<div id="map-canvas"></div>
+      <script>
                         
                             function initialize() {
                                 var mapOptions = {
@@ -81,7 +91,7 @@
                              }
                              google.maps.event.addDomListener(window, 'load', initialize);
                             
-                        </script>
+        </script>
     	
     		<br/>
     		<br/>
@@ -89,30 +99,39 @@
        
        
        
-          <label for="exampleInputEmail1">Make some comments here.</label>
-    			<div class="input-group">
-    				
-    				<input type="text" id="commentContent" class="form-control"  placeholder="Enter comments"/>
-            <span class="input-group-btn"><button type="button" class="btn btn-default" onclick="submitComment()" align=right>Submit Comment</button></span>
-  		    </div>
+        <label for="exampleInputEmail1">Make some comments here.</label>
+    		<div class="input-group">		
+    		  <input type="text" id="commentContent" class="form-control"  placeholder="Enter comments"/>
+          <span class="input-group-btn"><button type="button" class="btn btn-default" onclick="submitComment()" align=right>Submit Comment</button></span>
+  		  </div>
           <table class="table" id="commentTable">
             {% for comment in commentlist %}
             <tr><td><span style="color:blue">{{comment[0]}}</span>: {{comment[1]}}</td><td>{{comment[2]}}</td></tr>
 				    {% endfor %}  
-            <div id="userName" style="display:none;">{{user}}</div>
-            
+            <input id="userName" style="display:none;" value="{{user}}"/>
           </table>
-  		<button type="button" id="join" class="btn btn-primary" onclick="joinEvent()">Join Event</button>
-			
-			&nbsp;&nbsp;&nbsp;
-			
-			<button type="button" class="btn btn-primary" onclick="{location.href='/home'}">Back to main page</button>
-			
+  		  <button type="button" id="join" class="btn btn-primary" onclick="joinEvent()">Join Event</button>
+			  &nbsp;&nbsp;&nbsp;
+			  <button type="button" class="btn btn-primary" onclick="{location.href='/home'}">Back to main page</button>
 			<br/>
-			<br/>
-    		
-		
+			<br/>		
     </div>
+    <table id="joinedTable" class="table" >
+				<thead>
+					<tr class="active">
+						<th align=center>Current joined users</th>
+					</tr>
+				</thead>
+        <tbody>
+          
+				{% for user in joineduserlist %}
+        		<tr><td>{{user.name}}</td></tr>
+				{% endfor %}
+        </tbody>
+	</table>
+  <div data-alerts="alerts" data-titles="{'warning': '<em>Warning!</em>'}" data-ids="myid" data-fade="3000"></div>
+
+    
     <footer align=center>© 2014 IEMS5718-Group13. All rights reserved.</footer>
   </body>
 </html>

@@ -1,0 +1,130 @@
+#joinedTable{
+  text-align:center;
+  vertical-align:middle;
+  width:20%;
+  height:400;
+  position:absolute;
+  
+  top:130px;
+  right:5%;
+  border-color:1px solid black;
+  
+}
+#joinedTable th {
+  text-align:center;
+  vertical-align:middle;
+}
+body {
+	
+    background:url(../images/twitter.jpg);
+	
+}
+body input{
+	
+}
+#title{
+ text-align:center;
+color: #fafafa;
+letter-spacing: 0;
+text-shadow: 0px 1px 0px #999, 0px 2px 0px #888, 0px 3px 0px #777, 0px 4px 0px #666, 0px 5px 0px #555, 0px 6px 0px #444, 0px 7px 0px #333, 0px 8px 7px #001135 
+}
+#header{
+  width:100%;
+  background:white;
+  height:30px;
+  padding:4px;
+  text-align:right;
+  font-weight: bold;
+  font-style:oblique;
+  
+}
+.container{
+  margin:0 auto;
+	width:800px;
+    height: 100%;
+}
+.controls {
+    margin-top: 16px;
+    border: 1px solid transparent;
+    border-radius: 2px 0 0 2px;
+    box-sizing: border-box;
+    -moz-box-sizing: border-box;
+   height: 32px;
+   outline: none;
+	box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3);
+}
+.form-group{
+		align:center;
+}
+#main {
+		margin-left:270px;
+		border: 1px solid blue;
+}
+#table{
+		align:center;
+		width:800px;
+}
+	  
+	  .item{
+		font-size:14px;
+		font-family:arial;
+		margin:10px;
+	  }
+	  #ename{
+		width:400px;
+	  }
+	  #edate{
+		width:400px;
+	  }
+
+      #pac-input {
+        background-color: #fff;
+        padding: 0 11px 0 13px;
+        width: 400px;
+        font-family: Roboto;
+        font-size: 13px;
+        font-weight: 300;
+        text-overflow: ellipsis;
+      }
+
+      #pac-input:focus {
+        border-color: #4d90fe;
+        margin-left: -1px;
+        padding-left: 14px;  /* Regular padding-left + 1. */
+        width: 401px;
+      }
+
+      .pac-container {
+        font-family: Roboto;
+      }
+	  /*#mapsearch{
+	    color: #fff;
+        background-color: #4d90fe;
+        padding: 5px 11px 0px 11px;
+	  }
+	  #search{
+	    font-family: Roboto;
+        font-size: 14px;
+        font-weight: 300;
+	  }*/
+      #type-selector {
+        color: #fff;
+        background-color: #4d90fe;
+        padding: 5px 11px 0px 11px;
+		display: none;
+      }
+
+      #type-selector label {
+        font-family: Roboto;
+        font-size: 14px;
+        font-weight: 300;
+      }
+	  #map-canvas  {
+	    width:800px;
+		height:500px;
+	  }
+}
+
+
+
+    

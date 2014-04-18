@@ -4,6 +4,7 @@ var time=["","",""];
 var wrong=[0,0,0,0];
 var flag;
 var min=0;
+//var initialeventid=$('#eventid').val();
 function initialize() {
   var mapOptions = {
     center: new google.maps.LatLng(22.413533,114.21031),
@@ -76,8 +77,28 @@ function initialize() {
    
   }
  //google.maps.event.addDomListener(window, 'load', initialize);
-
-
+var today='';
+function submitComment(){
+  event.preventDefault();
+	var comment=$('#commentContent').val();
+  var userName=$('#userName').val();
+  var tempArray=today.split('T');
+  var tempTime=tempArray[0]+" "+tempArray[1];
+  //var commentTimeArray=today.split("T");
+  //var commentTime=commentTimeArray[0]+" "+commentTimeArray[1];
+  
+  $('#commentTable').prepend('<tr><td><span style="color:blue">'+userName+'</span>: '+comment+' </td><td>'+tempTime+'</td></tr>');
+	//$('#commentTable tr:first').after('<tr></tr>');
+ $('#commentContent').removeAttr('value');
+  $.ajax({
+    url:'/comments/add',
+    type:'POST',
+    data:{
+      comment:$('#commentContent').val(),
+      eventid:$('#eventid').val(),
+    }
+  });
+}
 function deleteTime(divNum) {
 	event.preventDefault();
 	$('#'+divNum).remove();
@@ -85,30 +106,38 @@ function deleteTime(divNum) {
 	if(flag<4)
   		$("#confirm_date").removeAttr('disabled');
 }
-
+function cancel(){
+  //alert("Do you really want to cancel it?");
+  $.ajax({
+    url:'/event/cancel',
+    type:'POST',
+    data:{
+      eventid:$('#eventid').val(),
+    }
+  });
+      jConfirm('Your event has been cancelled!', 'Confirmation Dialog', function() {
+      window.location.href="/home"; 
+      });
+}
 function setTime() {
 	event.preventDefault();
 	var content=$('#selector').val();
   var timeArray=content.split("T");
-  
-  var showTime=timeArray[0]+"  "+timeArray[1];
+  var length=$('#length').val();
+  showTime=timeArray[0]+" "+timeArray[1];
 	var divIdName;
  	divIdName="my"+count+"Div";
   $('#timeContent').append(' <div id='+divIdName+'>'+showTime+'<a href="#" onclick="deleteTime(\'' + divIdName + '\')">   Delete</a></div>');
   time[(count-1)]=showTime;
+  //alert(time[count-1]);
   count++;
   flag=count-min;
-  if(flag>=4)
+  
+  if(flag>=4||length>=3)
   	$("#confirm_date").attr("disabled", "disabled");
   	
 }
 
-var SubmitComment=function (){
-	event.preventDefault();
-	var comment=$('#commentContent').val();
-	$('#commentTable').append('<tr><td>'+comment+'</td><td>WANG WEI</td></tr>');
-	$('#commentTable tr:last').after('<tr></tr>');
-};
 var submitForm=function (){
     //alert(typeof($("#input-name").val()));
     if($("#input-name").val()==""){
@@ -131,7 +160,7 @@ var submitForm=function (){
     }
     if(wrong[1]==0){
     //alert(typeof(time[0]));
-        if(time[0]==""){
+        if($('#timeContent').is(':empty')){
             wrong[2]=1
             document.getElementById('wrong').innerHTML = 'You have not set the time!';
             $("#wrong").css('display', 'block');
@@ -153,29 +182,44 @@ var submitForm=function (){
     
     if(wrong[0]==0&&wrong[1]==0&&wrong[2]==0&&wrong[3]==0){
        $("#wrong").css('display', 'none');
+
        $.ajax({url:'/event/submit',
-    type:'POST',
-    data: {
-      name:$("#input-name").val(), 
-      introduction:$("#introduction").val(), 
-      my1Time:time[0], 
-      my2Time:time[1], 
-      my3Time:time[2], 
-      location:$("#pac-input").val(), 
-      coordinate:coordinate
-    }
-       }).done(function (bal) {
-    	alert(bal);
-    	}).fail(function (jqXHR, textStatus) {
-    	alert("Request failed: " + textStatus);
-    	});
-    }
-  alert("Create event successfully!");
-  $("#submitEvent").attr("disabled", "disabled");
-  window.location.href="/home"; 
+        type:'POST',
+        data: {
+          name:$("#input-name").val(), 
+          introduction:$("#introduction").val(), 
+          my1Time:time[0], 
+          my2Time:time[1], 
+          my3Time:time[2], 
+          location:$("#pac-input").val(), 
+          coordinate:coordinate,
+          eventid:$('#eventid').val(),
+        }
+      });
+      jAlert('Successfully create this event!');
+      $("#submitEvent").attr("disabled", "disabled");
+      jConfirm('Successfully initial this event!', 'Confirmation Dialog', function() {
+      window.location.href="/home"; 
+  });
+    
+   }
+ 
 };
 
 $(document).ready(function() {
+  //alert(length);
+
+  if($("#eventid").val().length!=0){
+    $("#commentArea").show();
+    $("#cancelEvent").show();
+  }
+  else{
+    $("#commentArea").hide();
+    $("#cancelEvent").hide();
+  }
+  var votelength=$("#length").val();
+  if(votelength>=3)
+  	$("#confirm_date").attr("disabled", "disabled");
 	var date = new Date;
   //date.setTime(result_from_Date_getTime);
   var seconds = date.getSeconds();
@@ -191,8 +235,8 @@ $(document).ready(function() {
     hour="0"+hour;
   
 
-  var today = year+"-"+month+"-"+day+"T"+hour+":"+minutes;
-  alert(today);
+  today = year+"-"+month+"-"+day+"T"+hour+":"+minutes;
+ // alert(today);
 	$('#selector').val(today);
   google.maps.event.addDomListener(window, 'load', initialize);
   $('#submitEvent').click(submitForm);

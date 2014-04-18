@@ -50,11 +50,11 @@ function submitComment(){
   event.preventDefault();
 	var comment=$('#commentContent').val();
   var userName=$('#userName').val();
-  
-  alert(comment);
-  $('#commentTable').append('<tr><td>'+userName+': '+comment+' </td></tr>');
-	$('#commentTable').append('<tr><td>'+today+'</td><td>WANG WEI</td></tr>');
-	$('#commentTable tr:last').after('<tr></tr>');
+  var commentTimeArray=today.split("T");
+  var commentTime=commentTimeArray[0]+" "+commentTimeArray[1];
+  $('#commentTable').prepend('<tr><td><span style="color:blue">'+userName+'</span>: '+comment+' </td><td>'+commentTime+'</td></tr>');
+  $('#commentContent').removeAttr('value');
+	//$('#commentTable tr:first').after('<tr></tr>');
   $.ajax({
     url:'/comments/add',
     type:'POST',
@@ -63,13 +63,14 @@ function submitComment(){
       eventid:$("#eventId").val(),
     }
   });
-}
+} 
+
 function joinEvent(){
   saveVote();
   var firstVote=chosenList[0];
   var secVote=chosenList[1];
   var thirdVote=chosenList[2];
-  alert(firstVote);
+  //alert(chosenList);
   $.ajax({
     		url: "/event/submitvote", 
  				type: "POST",
@@ -80,16 +81,38 @@ function joinEvent(){
           eventid:$("#eventId").val(),
         }
       });
-  alert("Successfully join this event!");
+  jConfirm('Successfully join this event!', 'Confirmation Dialog', function() {
+    window.location.href="/home"; 
+  });
+  
+  //jAlert('Successfully join this event!');
+  //bootbox.alert("Successfully join this event!");
+  //$('#dialog-message').modal('toggle'); 
+  
+  //myalert("Test", "This is a test modal dialog");
+ 
+  
+ //alert("Join this event successfully!");
   $("#join").attr("disabled", "disabled");
-  window.location.href="/home"; 
+  //
       //alert(chosenList);
 }
 $(document).ready(function() {
-	var now = new Date();
-	var day = ("0" + now.getDate()).slice(-2);
-	var month = ("0" + (now.getMonth() + 1)).slice(-2);
-  today = now.getFullYear()+"-"+(month)+"-"+(day) ;
+
+  var date = new Date;
+  //date.setTime(result_from_Date_getTime);
+  var seconds = date.getSeconds();
+  var minutes = date.getMinutes();
+  var hour = date.getHours();
+  var year = date.getFullYear();
+  var month = date.getMonth()+1; // beware: January = 0; February = 1, etc.
+  var day = date.getDate();
+  month="0" + month;
+  if(minutes<10)
+    minutes="0"+minutes;
+  if(hour<10)
+    hour="0"+hour;
+  today = year+"-"+month+"-"+day+"T"+hour+":"+minutes;
   
 	$('#selector').val(today);
         google.maps.event.addDomListener(window, 'load', initialize);
