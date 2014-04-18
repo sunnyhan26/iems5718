@@ -86,18 +86,21 @@ function submitComment(){
   var tempTime=tempArray[0]+" "+tempArray[1];
   //var commentTimeArray=today.split("T");
   //var commentTime=commentTimeArray[0]+" "+commentTimeArray[1];
-  
-  $('#commentTable').prepend('<tr><td><span style="color:blue">'+userName+'</span>: '+comment+' </td><td>'+tempTime+'</td></tr>');
-	//$('#commentTable tr:first').after('<tr></tr>');
- $('#commentContent').removeAttr('value');
-  $.ajax({
-    url:'/comments/add',
-    type:'POST',
-    data:{
-      comment:$('#commentContent').val(),
-      eventid:$('#eventid').val(),
-    }
-  });
+  if($('#commentContent').val()=="")
+    $("#commentwrong").css('display', 'block');
+  else{
+    $('#commentTable').prepend('<tr><td><span style="color:blue">'+userName+'</span>: '+comment+' </td><td>'+tempTime+'</td></tr>');
+	  //$('#commentTable tr:first').after('<tr></tr>');
+    $('#commentContent').removeAttr('value');
+    $.ajax({
+      url:'/comments/add',
+      type:'POST',
+      data:{
+        comment:$('#commentContent').val(),
+        eventid:$('#eventid').val(),
+      }
+    });
+  }
 }
 function deleteTime(divNum) {
 	event.preventDefault();
@@ -208,7 +211,7 @@ var submitForm=function (){
 
 $(document).ready(function() {
   //alert(length);
-
+  
   if($("#eventid").val().length!=0){
     $("#commentArea").show();
     $("#cancelEvent").show();
@@ -240,5 +243,5 @@ $(document).ready(function() {
 	$('#selector').val(today);
   google.maps.event.addDomListener(window, 'load', initialize);
   $('#submitEvent').click(submitForm);
-	
+	$('#dateSelect').datetimepicker();
 });

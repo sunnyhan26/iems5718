@@ -52,17 +52,23 @@ function submitComment(){
   var userName=$('#userName').val();
   var commentTimeArray=today.split("T");
   var commentTime=commentTimeArray[0]+" "+commentTimeArray[1];
-  $('#commentTable').prepend('<tr><td><span style="color:blue">'+userName+'</span>: '+comment+' </td><td>'+commentTime+'</td></tr>');
-  $('#commentContent').removeAttr('value');
-	//$('#commentTable tr:first').after('<tr></tr>');
-  $.ajax({
-    url:'/comments/add',
-    type:'POST',
-    data:{
-      comment:$('#commentContent').val(),
-      eventid:$("#eventId").val(),
-    }
-  });
+  
+  if($('#commentContent').val()=="")
+    $("#wrong").css('display', 'block');
+  else{
+    $('#commentTable').prepend('<tr><td><span style="color:blue">'+userName+'</span>: '+comment+' </td><td>'+commentTime+'</td></tr>');
+    $('#commentContent').removeAttr('value');
+	  //$('#commentTable tr:first').after('<tr></tr>');
+    $.ajax({
+      url:'/comments/add',
+      type:'POST',
+      data:{
+        comment:$('#commentContent').val(),
+        eventid:$("#eventId").val(),
+      }
+    });
+  }
+  //alert("Comments made!");
 } 
 
 function joinEvent(){

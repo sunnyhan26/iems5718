@@ -4,6 +4,8 @@
 	<meta name="viewport" content="initial-scale=1.0, user-scalable=no">
     <meta charset="utf-8">
     <script src="/js/jquery.js" type="text/javascript"></script>
+
+    
     <script src="/js/jquery.ui.draggable.js" type="text/javascript"></script>
     <script src="/js/jquery.alerts.js" type="text/javascript"></script>
     <link href="/css/jquery.alerts.css" rel="stylesheet" type="text/css" media="screen" />
@@ -20,6 +22,7 @@
     <script src="/js/bootbox.js"></script>
     <script type="text/javascript" src="/js/view.js"></script>
     <link href='http://fonts.googleapis.com/css?family=Racing+Sans+One' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.googleapis.com/css?family=Roboto' rel='stylesheet' type='text/css'>
   </head>
   <body>
   	    <div id="fb-root"></div>
@@ -32,6 +35,7 @@
   }(document, 'script', 'facebook-jssdk'));
   </script>
     <div id="header">  
+      <span style="float:left;margin-left:16%;">Event World! Fly your event!</span>
       <div id="headertext">
         <span style="text-align:center">Welcome, {{user}}!</span>
         &nbsp;&nbsp;&nbsp;
@@ -46,13 +50,13 @@
 	  <div class="form-group">
       <label for="exampleInputEmail1" style="font-size:24px;font-family: 'Racing Sans One', cursive;border-bottom: 1px solid #000;">1. Event's name</label>  
       <br/>
-      <div style="border-color:#000">{{eventname}}</div>
+      <div style="font-size:20px;font-family: 'Roboto, sans-serif', cursive;">{{eventname}}</div>
   		</div>
 			<br/>
 			<div class="form-group">
     		<label for="exampleInputEmail1" style="font-size:24px;font-family: 'Racing Sans One', cursive;border-bottom: 1px solid #000;">2. Event's Description</label>
         <br/>
-        <div>{{introduction}}</div>
+        <div style="font-size:20px;font-family: 'Roboto, sans-serif', cursive;">{{introduction}}</div>
   		</div>
   		<br/>
 			<div class="form-group">
@@ -60,7 +64,7 @@
         <br/>
         <input type="text" style="display:none" value="{{eventid}}" id="eventId"/>
         <div style="display:none" id="userid">{{userid}}</div>
-        <div id="timeContent">
+        <div style="font-size:20px;font-family: 'Roboto, sans-serif', cursive;" id="timeContent">
            {% for i in range (0, length) %}
             <input type="checkbox" id="radio{{i}}Name"/> {{datelist[i]}}  &nbsp;&nbsp;&nbsp;<span>Number of Current Votes: {{ votelist[i]}}</span><br/>
 				   {% endfor %}  
@@ -70,7 +74,7 @@
   		<div class="form-group">
     	  <label for="exampleInputEmail1" style="font-size:24px;font-family: 'Racing Sans One', cursive;border-bottom: 1px solid #000;">4. Event's location</label>
         <br/>             
-        <div>{{location}}</div>
+        <div style="font-size:20px;font-family: 'Roboto, sans-serif', cursive;">{{location}}</div>
   	  </div>
       <br/>
   		<div id="map-canvas"></div>
@@ -98,13 +102,13 @@
        
        
        
-       
+       <div id="wrong" style="display:none;color:red;">You should type something to comment!</div>
         <label for="exampleInputEmail1">Make some comments here.</label>
-    		<div class="input-group">		
-    		  <input type="text" id="commentContent" class="form-control"  placeholder="Enter comments"/>
-          <span class="input-group-btn"><button type="button" class="btn btn-default" onclick="submitComment()" align=right>Submit Comment</button></span>
+        <div class="input-group" style="width:80%">		
+          <input type="text" id="commentContent" class="form-control" placeholder="Enter comments"/>
+          <span class="input-group-btn"><button type="button" class="btn btn-default" onclick="submitComment()" >Submit Comment</button></span>
   		  </div>
-          <table class="table" id="commentTable">
+      <table class="table" id="commentTable" style="width:80%">
             {% for comment in commentlist %}
             <tr><td><span style="color:blue">{{comment[0]}}</span>: {{comment[1]}}</td><td>{{comment[2]}}</td></tr>
 				    {% endfor %}  
@@ -129,7 +133,8 @@
 				{% endfor %}
         </tbody>
 	</table>
-  <div data-alerts="alerts" data-titles="{'warning': '<em>Warning!</em>'}" data-ids="myid" data-fade="3000"></div>
+      
+  
 
     
     <footer align=center>© 2014 IEMS5718-Group13. All rights reserved.</footer>
