@@ -28,6 +28,6 @@ def getCommentList(eid):
 	result = que.fetch()
 	commentlist=[]
 	for item in result:
-		commentlist.append([item.user.email(), item.content, datetime2str(item.time)])
+		commentlist.append([item.user.nickname(), item.content, datetime2str(item.time)])
 	return commentlist
 
