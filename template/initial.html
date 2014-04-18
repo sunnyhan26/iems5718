@@ -26,7 +26,7 @@
   </script>
     <div id="header">  
       <div id="headertext">
-        <span style="text-align:center">Welcome, userName!</span>
+        <span style="text-align:center">Welcome, {{user}}!</span>
         &nbsp;&nbsp;&nbsp;
       <div class="fb-share-button" data-href="https://www.facebook.com/sharer/sharer.php?u=http://www.google.com" data-width="10px" data-type="button_count"></div>
         &nbsp;&nbsp;&nbsp;
@@ -48,7 +48,7 @@
   		</div>
 		<br/>
 		<div class="form-group" name="step3">
-      <label for="exampleInputEmail1">Step3: Set the time</label><button onclick=test()>test</button>
+      <label for="exampleInputEmail1">Step3: Set the time</label>
     			<form>
 				<input type="datetime-local"  id="selector"  name="user_date"/>
         
@@ -76,18 +76,22 @@
 			
   		</table>
                 <div id="wrong" style="display:none;color:red;">wrong!</div>
-  		<button type="button" class="btn btn-primary" id="submitEvent" >Submit the Event</button>
+  	<button type="button" class="btn btn-primary" id="submitEvent" >Submit the Event</button>
 		&nbsp;&nbsp;&nbsp;
 		<button type="button" class="btn btn-primary" onclick="{location.href='/home'}">Back to main page</button>
 		<br/>
 		<br/>
-  		<table class="table" id="commentTable">
-      			
-      			<tbody>
-        		
-        
-      			</tbody>
-    		</table>
+      <div class="form-group">
+    	  <label for="exampleInputEmail1">Make some comments here.</label>
+    		<input type="text" id="commentContent" class="form-control" placeholder="Enter comments"/>
+        <button type="button" class="btn btn-primary btn-sm" onclick="submitComment()" align=right>Submit Comment</button>
+  		</div>
+          
+      <table class="table" id="commentTable">
+            {% for comment in commentlist %}
+            <tr><td>{{comment}}</td>       <td>{{user}}</td></tr>
+				    {% endfor %}          
+      </table>
                 
 			
 		</form>

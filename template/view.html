@@ -4,7 +4,7 @@
 	<meta name="viewport" content="initial-scale=1.0, user-scalable=no">
     <meta charset="utf-8">
   	<link rel="stylesheet" href="/css/bootstrap.css" type="text/css"/>  
-  	<link rel="stylesheet" href="/css/initial.css" type="text/css" />
+  	<link rel="stylesheet" href="/css/view.css" type="text/css" />
     <title>Check Event</title>
     <script type="text/javascript" src="/js/jquery.js"></script>
     <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCbYzvg0aGCPVxWr7x7ou13ObTbq-roTiA&sensor=false&libraries=places"></script>
@@ -23,7 +23,7 @@
   </script>
     <div id="header">  
       <div id="headertext">
-        <span style="text-align:center">Welcome, userName!</span>
+        <span style="text-align:center">Welcome, {{user}}!</span>
         &nbsp;&nbsp;&nbsp;
       <div class="fb-share-button" data-href="https://www.facebook.com/sharer/sharer.php?u=http://www.google.com" data-width="10px" data-type="button_count"></div>
         &nbsp;&nbsp;&nbsp;
@@ -88,25 +88,25 @@
        
        
        
-       <table class="table" id="comment">
-    			{% for item in commentlist %}
-        	<tr>
-         		<td>{{item[0]}}say: {{item[1]}} at {{item[2]}}</td>	
-        	</tr>
-           {% endfor %}	       
-  	    </table>
-                
-    			<div class="form-group">
-    				<label for="exampleInputEmail1">Make some comments here.</label>
-            <button type="button" class="btn btn-success" onclick="submitComment">Submit Comment</button>
-    				<input type="text" id="commentContent" class="form-control" placeholder="Enter comments"/>
+       
+          <label for="exampleInputEmail1">Make some comments here.</label>
+    			<div class="input-group">
+    				
+    				<input type="text" id="commentContent" class="form-control"  placeholder="Enter comments"/>
+            <span class="input-group-btn"><button type="button" class="btn btn-default" onclick="submitComment()" align=right>Submit Comment</button></span>
   		    </div>
+          <table class="table" id="commentTable">
+            {% for comment in commentlist %}
+            <tr><td><span style="color:blue">{{comment[0]}}</span>: {{comment[1]}}</td><td>{{comment[2]}}</td></tr>
+				    {% endfor %}  
+            <div id="userName" style="display:none;">{{user}}</div>
             
-  		<button type="button" class="btn btn-success" onclick="joinEvent()">Join Event</button>
+          </table>
+  		<button type="button" id="join" class="btn btn-primary" onclick="joinEvent()">Join Event</button>
 			
 			&nbsp;&nbsp;&nbsp;
 			
-			<button type="button" class="btn btn-success" onclick="{location.href='/home'}">Back to main page</button>
+			<button type="button" class="btn btn-primary" onclick="{location.href='/home'}">Back to main page</button>
 			
 			<br/>
 			<br/>

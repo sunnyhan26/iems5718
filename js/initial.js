@@ -85,20 +85,19 @@ function deleteTime(divNum) {
 	if(flag<4)
   		$("#confirm_date").removeAttr('disabled');
 }
-function test(){
-  var test=$('#selector').value;
-  alert(test);
-}
+
 function setTime() {
 	event.preventDefault();
 	var content=$('#selector').val();
+  var timeArray=content.split("T");
+  
+  var showTime=timeArray[0]+"  "+timeArray[1];
 	var divIdName;
  	divIdName="my"+count+"Div";
-  $('#timeContent').append(' <div id='+divIdName+'>'+content+'<a href="#" onclick="deleteTime(\'' + divIdName + '\')">   Delete</a></div>');
-  time[(count-1)]=content;
+  $('#timeContent').append(' <div id='+divIdName+'>'+showTime+'<a href="#" onclick="deleteTime(\'' + divIdName + '\')">   Delete</a></div>');
+  time[(count-1)]=showTime;
   count++;
   flag=count-min;
-  alert(flag);
   if(flag>=4)
   	$("#confirm_date").attr("disabled", "disabled");
   	
@@ -156,22 +155,46 @@ var submitForm=function (){
        $("#wrong").css('display', 'none');
        $.ajax({url:'/event/submit',
     type:'POST',
-    data: {name:$("#input-name").val(), introduction:$("#introduction").val(), my1Time:time[0], my2Time:time[1], my3Time:time[2], location:$("#pac-input").val(), coordinate:coordinate}
+    data: {
+      name:$("#input-name").val(), 
+      introduction:$("#introduction").val(), 
+      my1Time:time[0], 
+      my2Time:time[1], 
+      my3Time:time[2], 
+      location:$("#pac-input").val(), 
+      coordinate:coordinate
+    }
        }).done(function (bal) {
     	alert(bal);
     	}).fail(function (jqXHR, textStatus) {
     	alert("Request failed: " + textStatus);
     	});
     }
+  alert("Create event successfully!");
+  $("#submitEvent").attr("disabled", "disabled");
+  window.location.href="/home"; 
 };
 
 $(document).ready(function() {
-	var now = new Date();
-	var day = ("0" + now.getDate()).slice(-2);
-	var month = ("0" + (now.getMonth() + 1)).slice(-2);
-	var today = now.getFullYear()+"-"+(month)+"-"+(day) ;
+	var date = new Date;
+  //date.setTime(result_from_Date_getTime);
+  var seconds = date.getSeconds();
+  var minutes = date.getMinutes();
+  var hour = date.getHours();
+  var year = date.getFullYear();
+  var month = date.getMonth()+1; // beware: January = 0; February = 1, etc.
+  var day = date.getDate();
+  month="0" + month;
+  if(minutes<10)
+    minutes="0"+minutes;
+  if(hour<10)
+    hour="0"+hour;
+  
+
+  var today = year+"-"+month+"-"+day+"T"+hour+":"+minutes;
+  alert(today);
 	$('#selector').val(today);
-        google.maps.event.addDomListener(window, 'load', initialize);
-        $('#submitEvent').click(submitForm);
+  google.maps.event.addDomListener(window, 'load', initialize);
+  $('#submitEvent').click(submitForm);
 	
 });

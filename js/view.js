@@ -45,10 +45,15 @@ function saveVote(){
     i++;
   }  
 }
+var today='';
 function submitComment(){
   event.preventDefault();
 	var comment=$('#commentContent').val();
-	$('#commentTable').append('<tr><td>'+comment+'</td><td>WANG WEI</td></tr>');
+  var userName=$('#userName').val();
+  
+  alert(comment);
+  $('#commentTable').append('<tr><td>'+userName+': '+comment+' </td></tr>');
+	$('#commentTable').append('<tr><td>'+today+'</td><td>WANG WEI</td></tr>');
 	$('#commentTable tr:last').after('<tr></tr>');
   $.ajax({
     url:'/comments/add',
@@ -76,13 +81,16 @@ function joinEvent(){
         }
       });
   alert("Successfully join this event!");
+  $("#join").attr("disabled", "disabled");
+  window.location.href="/home"; 
       //alert(chosenList);
 }
 $(document).ready(function() {
 	var now = new Date();
 	var day = ("0" + now.getDate()).slice(-2);
 	var month = ("0" + (now.getMonth() + 1)).slice(-2);
-	var today = now.getFullYear()+"-"+(month)+"-"+(day) ;
+  today = now.getFullYear()+"-"+(month)+"-"+(day) ;
+  
 	$('#selector').val(today);
         google.maps.event.addDomListener(window, 'load', initialize);
         //$('#submitEvent').click(submitForm);
