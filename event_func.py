@@ -13,6 +13,7 @@ class Event(ndb.Model):
 	location = ndb.StringProperty()
 	lagitude = ndb.FloatProperty()
 	longitude = ndb.FloatProperty()
+	cancelled = ndb.BooleanProperty()
 	createTime = ndb.DateTimeProperty(auto_now_add=True)
 	lastModifiedTime = ndb.DateTimeProperty(auto_now=True)
 
@@ -37,9 +38,15 @@ def addEvent(ownerid, name, summary, my1Time, my2Time, my3Time, location,
 		event = Event(ownerid=ownerid, name=name, summary=summary,
 			my1Time=str2datetime(my1Time), my2Time=str2datetime(my2Time),
 			my3Time=str2datetime(my3Time), location=location,
-			lagitude=lagitude, longitude=longitude, key=mykey)
+			lagitude=lagitude, longitude=longitude, cancelled=False, key=mykey)
 		key = event.put()
 		logging.info('Event added with key %s' % key)
+
+def cancelEvent(eventid):
+	if permitted():
+		event = getEvent(int(eventid))
+		event.cancelled = True
+		event.put()
 
 def voteEvent(eventid, userid, voteList):
 	parentkey = ndb.Key('Event', int(eventid))
@@ -88,7 +95,6 @@ def getVoteList(eventid):
 def getEvent(event_id):
 	eventkey = ndb.Key('Event', event_id)
 	event = eventkey.get()
-	logging.info('Got an event with key %d, %s' % (event_id, event))
 	return event
 
 def _fetchEventList(query):
@@ -96,7 +102,7 @@ def _fetchEventList(query):
 	eventlist = []
 	for event in result:
 		eventlist.append([event.name, event.location,
-			datetime2str(event.my1Time), event.key.id()])
+			datetime2str(event.my1Time), event.key.id(), event.cancelled])
 		logging.info(event)
 	return eventlist
 
@@ -124,7 +130,7 @@ def getEventListByVoter(voterUserID):
 	for eventvote in result:
 		event = eventvote.key.parent().get()
 		eventlist.append([event.name, event.location,
-			datetime2str(event.my1Time), event.key.id()])
+			datetime2str(event.my1Time), event.key.id(), event.cancelled])
 		logging.info(event)
 	return eventlist
 
@@ -159,7 +165,7 @@ def isEventUdpatedToday(eventid):
 	votelist = getVoteNoList(int(eventid))
 	voteupdated = False
 	for vote in votelist:
-		if isToday(vote.lastModifiedTime)
+		if isToday(vote.lastModifiedTime):
 			voteupdated = True
 
 	return [eventupdated, commentupdated, voteupdated]

@@ -58,6 +58,11 @@ class SubmitVote(webapp2.RequestHandler):
 		event_func.voteEvent(eventid, userid, voteList)
 		self.response.write('Vote saved successfully!')
 
+class SubmitCancel(webapp2.RequestHandler):
+	def post(self):
+		eventid = self.request.get('eventid')
+		event_func.cancelEvent(eventid)
+
 def listCountNonNone(list):
 	count = 0
 	for i in list:
@@ -119,4 +124,5 @@ app = webapp2.WSGIApplication([
     ('/event/view', ViewEvent),  
     ('/event/submit', SubmitEvent),
     ('/event/submitvote', SubmitVote),
+    ('/event/cancel', SubmitCancel),
     ], debug=False)
