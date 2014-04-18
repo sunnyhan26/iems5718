@@ -21,6 +21,7 @@ class EventVote(ndb.Model):
 	my1Vote = ndb.IntegerProperty()
 	my2Vote = ndb.IntegerProperty()
 	my3Vote = ndb.IntegerProperty()
+	lastModifiedTime = ndb.DateTimeProperty(auto_now=True)
 
 def permitted():
 	return True
