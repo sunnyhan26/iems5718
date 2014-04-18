@@ -18,7 +18,7 @@ body{
 #join_td{
 	border:1px solid black;
 	width:60%;
-	valign:top;
+	vertical-align:top;
 }
 #join_table th, td{
 	text-align:center;
