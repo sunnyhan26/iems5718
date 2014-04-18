@@ -98,3 +98,19 @@ def getEventListByOwner(ownerUserID):
 	"""
 	query = Event.query(Event.ownerid==ownerUserID)
 	return _fetchEventList(query)
+
+def getEventListByVoter(voterUserID):
+	"""
+	Return a list of event a user has voted
+	"""
+	query = EventVote.query(EventVote.userid==voterUserID)
+	result = query.fetch()
+	eventlist = []
+	for eventvote in result:
+		event = eventvote.key.parent().get()
+		eventlist.append([event.name, event.location,
+			datetime2str(event.my1Time), event.key.id()])
+		logging.info(event)
+	return eventlist
+
+

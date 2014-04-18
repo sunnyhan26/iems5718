@@ -33,7 +33,7 @@ class JoinedEventPage(webapp2.RequestHandler):
 	def get(self):
 		user = user_func.getCurrentUser(self)
 		logoutlink = users.create_logout_url('/')
-		eventlist = event_func.getEventListByOwner(user.user_id())
+		eventlist = event_func.getEventListByVoter(user.user_id())
 		template_values = {
 			'logoutlink' : logoutlink,
 			'user' : user,
