@@ -46,7 +46,15 @@ class SubmitVote(webapp2.RequestHandler):
 	def post(self):
 		userid = users.get_current_user().user_id()
 		eventid = self.request.get('eventid')
-		voteList = self.request.get('voteList')
+		firstVote = self.request.get('firstVote')
+		secVote = self.request.get('secVote')
+		thirdVote = self.request.get('thirdVote')
+		try:
+			voteList = [int(firstVote), int(secVote), int(thirdVote)]
+		except ValueError as e:
+		 logging.error('firstVote: %s, secVote: %s, thirdVote: %s' % (firstVote, secVote, thirdVote))
+		 raise e
+
 		event_func.voteEvent(eventid, userid, voteList)
 		self.response.write('Vote saved successfully!')
 
