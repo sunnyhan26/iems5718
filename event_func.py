@@ -1,5 +1,6 @@
 from google.appengine.ext import ndb    
 import logging
+from user_func import getUserInfo
 from time_func import str2datetime, datetime2str
 
 class Event(ndb.Model):
@@ -113,4 +114,14 @@ def getEventListByVoter(voterUserID):
 		logging.info(event)
 	return eventlist
 
-
+def getJoinedUserList(eventid):
+	"""
+	Return a list of joined user
+	"""
+	userlist = []
+	ancestor_key = ndb.Key('Event', eventid)
+	query = EventVote.query(ancestor=ancestor_key)
+	result = query.fetch()
+	for vote in result:
+		userlist.append(getUserInfo(vote.userid))
+	return userlist
