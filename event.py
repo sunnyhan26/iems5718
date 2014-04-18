@@ -46,8 +46,16 @@ class SubmitVote(webapp2.RequestHandler):
 	def post(self):
 		userid = users.get_current_user().user_id()
 		eventid = self.request.get('eventid')
-		voteList = self.request.get('voteList')
-		voteEvent(eventid, userid, voteList)
+		firstVote = self.request.get('firstVote')
+		secVote = self.request.get('secVote')
+		thirdVote = self.request.get('thirdVote')
+		try:
+			voteList = [int(firstVote), int(secVote), int(thirdVote)]
+		except ValueError as e:
+		 logging.error('firstVote: %s, secVote: %s, thirdVote: %s' % (firstVote, secVote, thirdVote))
+		 raise e
+
+		event_func.voteEvent(eventid, userid, voteList)
 		self.response.write('Vote saved successfully!')
 
 def listCountNonNone(list):
@@ -60,6 +68,7 @@ def listCountNonNone(list):
 class ViewEvent(webapp2.RequestHandler):
 	def get(self):
 		user = user_func.getCurrentUser(self)
+		logoutlink = users.create_logout_url('/')
 		eventid = self.request.get('eventid')
 		logging.info('Received view event request with eventid ' + eventid)
 		try:
@@ -72,6 +81,8 @@ class ViewEvent(webapp2.RequestHandler):
 		chosenlist = event_func.getVoteList(int(eventid), user.user_id()) 
 		commentlist = comment_func.getCommentList(eventid)
 		template_values = {
+			'logoutlink' : logoutlink,
+			'user': user,
 			'eventname': event.name,
 			'location': event.location,
 			'introduction' : event.summary,
@@ -94,8 +105,10 @@ class ViewEvent(webapp2.RequestHandler):
 class EditEvent(webapp2.RequestHandler):
 	def get(self):
 		user = user_func.getCurrentUser(self)
+		logoutlink = users.create_logout_url('/')
 
 		template_values = {
+			'logoutlink' : logoutlink,
 			'user': user,
       'length':0
 		}
