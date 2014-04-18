@@ -80,7 +80,7 @@ class ViewEvent(webapp2.RequestHandler):
 		votelist = event_func.getVoteList(int(eventid), None)
 		chosenlist = event_func.getVoteList(int(eventid), user.user_id()) 
 		commentlist = comment_func.getCommentList(eventid)
-		joinedeuserlist = event_func.getJoinedUserList(int(eventid))
+		joineduserlist = event_func.getJoinedUserList(int(eventid))
 		template_values = {
 			'logoutlink' : logoutlink,
 			'user': user,
@@ -96,7 +96,7 @@ class ViewEvent(webapp2.RequestHandler):
 			'long':event.longitude,
 			'eventid':eventid,
       'userid':users.get_current_user().user_id(),
-			'joinedeuserlist': joinedeuserlist
+			'joineduserlist': joineduserlist
 		}
 		if event.ownerid == user.user_id():
 			template = JINJA_ENVIRONMENT.get_template('/template/initial.html')
