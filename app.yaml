@@ -30,6 +30,9 @@ handlers:
 
 - url: /home.*
   script: home.app
+  
+- url: /comments/.*
+  script: comment.app
 
 - url: /images
   static_dir: images
