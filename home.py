@@ -22,8 +22,8 @@ class HomePage(webapp2.RequestHandler):
 		eventlist = event_func.getEventList()
 		template_values = {
 			'logoutlink' : logoutlink,
-			'userlist' : userlist,
 			'user' : user,
+			'userlist' : userlist,
 			'eventlist' : eventlist
 		}
 		template = JINJA_ENVIRONMENT.get_template('/template/mainPage.html')
@@ -32,8 +32,11 @@ class HomePage(webapp2.RequestHandler):
 class JoinedEventPage(webapp2.RequestHandler):
 	def get(self):
 		user = user_func.getCurrentUser(self)
+		logoutlink = users.create_logout_url('/')
 		eventlist = event_func.getEventListByOwner(user.user_id())
 		template_values = {
+			'logoutlink' : logoutlink,
+			'user' : user,
 			'eventlist' : eventlist
 		}
 		template = JINJA_ENVIRONMENT.get_template('/template/joined.html')
@@ -42,8 +45,10 @@ class JoinedEventPage(webapp2.RequestHandler):
 class MyEventPage(webapp2.RequestHandler):
 	def get(self):
 		user = user_func.getCurrentUser(self)
+		logoutlink = users.create_logout_url('/')
 		eventlist = event_func.getEventListByOwner(user.user_id())
 		template_values = {
+			'logoutlink' : logoutlink,
 			'user' : user,
 			'eventlist' : eventlist
 		}

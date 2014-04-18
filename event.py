@@ -60,6 +60,7 @@ def listCountNonNone(list):
 class ViewEvent(webapp2.RequestHandler):
 	def get(self):
 		user = user_func.getCurrentUser(self)
+		logoutlink = users.create_logout_url('/')
 		eventid = self.request.get('eventid')
 		logging.info('Received view event request with eventid ' + eventid)
 		try:
@@ -72,6 +73,8 @@ class ViewEvent(webapp2.RequestHandler):
 		chosenlist = event_func.getVoteList(int(eventid), user.user_id()) 
 		commentlist = comment_func.getCommentList(eventid)
 		template_values = {
+			'logoutlink' : logoutlink,
+			'user': user,
 			'eventname': event.name,
 			'location': event.location,
 			'introduction' : event.summary,
@@ -94,8 +97,10 @@ class ViewEvent(webapp2.RequestHandler):
 class EditEvent(webapp2.RequestHandler):
 	def get(self):
 		user = user_func.getCurrentUser(self)
+		logoutlink = users.create_logout_url('/')
 
 		template_values = {
+			'logoutlink' : logoutlink,
 			'user': user,
       'length':0
 		}
