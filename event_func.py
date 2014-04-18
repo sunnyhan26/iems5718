@@ -51,7 +51,12 @@ def voteEvent(eventid, userid, voteList):
 	key = vote.put()
 	logging.info("voted Event with key %s" %key)
 
-def getVoteList(eventid, userid):
+def getVoteNoList(eventid, userid):
+	"""
+	Return a list of number of vote of a particular event
+	If userid is not set, all votes for the event are counted
+	Otherwise, only the event of the user is counted
+	"""
 	ancestor_key = ndb.Key('Event', eventid)
 	if userid:
 		query = EventVote.query( EventVote.userid == userid,
@@ -70,6 +75,14 @@ def getVoteList(eventid, userid):
 	logging.info('votelist = %s' % votelist)
 	return votelist
 	
+def getVoteList(eventid):
+	"""
+	Return all the EventVote of the event
+	"""
+	ancestor_key = ndb.Key('Event', eventid)
+	query = EventVote.query(ancestor=ancestor_key)
+	result = query.fetch()
+	return result
 
 
 def getEvent(event_id):
@@ -126,3 +139,30 @@ def getJoinedUserList(eventid):
 	for vote in result:
 		userlist.append(getUserInfo(vote.userid))
 	return userlist
+
+def isEventUdpatedToday(eventid):
+	"""
+	Check whether the event it updated today
+	Return a Boolean list
+	which, if true, indicates the event was upated, new comments were
+	added and new votes were added respectively
+	"""
+	event=getEvent(int(eventid))
+	eventupdated = isToday(event.lastModifiedTime)
+
+	commentlist = getCommentList(eventid)
+	commentupdated = False
+	for comment in commentlist:
+		if isToday(str2datetime(comment[2])):
+			commentupdated = True
+	
+	votelist = getVoteNoList(int(eventid))
+	voteupdated = False
+	for vote in votelist:
+		if isToday(vote.lastModifiedTime)
+			voteupdated = True
+
+	return [eventupdated, commentupdated, voteupdated]
+
+
+

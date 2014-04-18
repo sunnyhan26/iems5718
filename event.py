@@ -71,14 +71,11 @@ class ViewEvent(webapp2.RequestHandler):
 		logoutlink = users.create_logout_url('/')
 		eventid = self.request.get('eventid')
 		logging.info('Received view event request with eventid ' + eventid)
-		try:
-			event = event_func.getEvent(int(eventid))
-		except ValueError:
-			event = event_func.getEvent(5066549580791808)
+		event = event_func.getEvent(int(eventid))
 		datelist = [event.my1Time, event.my2Time, event.my3Time]
 		length = listCountNonNone(datelist)
-		votelist = event_func.getVoteList(int(eventid), None)
-		chosenlist = event_func.getVoteList(int(eventid), user.user_id()) 
+		votelist = event_func.getVoteNoList(int(eventid), None)
+		chosenlist = event_func.getVoteNoList(int(eventid), user.user_id()) 
 		commentlist = comment_func.getCommentList(eventid)
 		joineduserlist = event_func.getJoinedUserList(int(eventid))
 		template_values = {

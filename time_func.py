@@ -17,3 +17,7 @@ def datetime2str(datetime):
 	except AttributeError:
 		str = None
 	return str
+
+def isToday(inputdate):
+	return (inputdate.date() == datetime.today().date())
+	
