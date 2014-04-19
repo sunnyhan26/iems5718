@@ -24,22 +24,23 @@
     
 
     <script type="text/javascript" src="/js/initial.js"></script>
-        <link href='http://fonts.googleapis.com/css?family=Racing+Sans+One' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.googleapis.com/css?family=Racing+Sans+One' rel='stylesheet' type='text/css'>
     <link href='http://fonts.googleapis.com/css?family=Roboto' rel='stylesheet' type='text/css'>
     <link href='http://fonts.googleapis.com/css?family=McLaren' rel='stylesheet' type='text/css'>
     <script src="/js/jquery.datetimepicker.js"></script>
-    
   </head>
+
   <body>
     <div id="fb-root"></div>
-  <script>(function(d, s, id) {
-  var js, fjs = d.getElementsByTagName(s)[0];
-  if (d.getElementById(id)) return;
-  js = d.createElement(s); js.id = id;
-  js.src = "//connect.facebook.net/zh_CN/all.js#xfbml=1";
-  fjs.parentNode.insertBefore(js, fjs);
-  }(document, 'script', 'facebook-jssdk'));
-  </script>
+    <script>(function(d, s, id) {
+      var js, fjs = d.getElementsByTagName(s)[0];
+      if (d.getElementById(id)) return;
+      js = d.createElement(s); js.id = id;
+      js.src = "//connect.facebook.net/zh_CN/all.js#xfbml=1";
+      fjs.parentNode.insertBefore(js, fjs);
+      }(document, 'script', 'facebook-jssdk'));
+    </script>
+    
     <div id="header">  
       <span style="float:left;margin-left:16%;">Event World! Fly your event!</span>
       <div id="headertext">
@@ -48,43 +49,48 @@
         <div class="fb-share-button" data-href="https://www.facebook.com/sharer/sharer.php?u=http://www.google.com" data-width="10px" data-type="button_count"></div>
         &nbsp;&nbsp;&nbsp;
         <span> <a href='{{logoutlink}}'>Sign out</a></span>
+      </div>
     </div>
-  </div>
+    
     <div class="container">
   	<h1 id="title">Initial an Event</h1>
       <hr>
       <br/>
     	<form role="form" id="table">
-		<div class="form-group" name="step1">
-<label for="exampleInputEmail1" style="font-size:24px;font-family: 'McLaren', cursive;">Step1: Set the event's name</label>
-    			<input type="text" class="form-control" id="input-name" placeholder="Enter event's name" value="{{eventname}}"/>
-  		</div>
-                <div class="form-group" name="step2">
+		    <div class="form-group" name="step1">
+          <label for="exampleInputEmail1" style="font-size:24px;font-family: 'McLaren', cursive;">Step1: Set the event's name</label>
+          <br/>
+          <input type="text" class="form-control" id="input-name" placeholder="Enter event's name" value="{{eventname}}"/>
+  		  </div>
+        <br/> 
+        <div class="form-group" name="step2">
     			<label for="exampleInputEmail1" style="font-size:24px;font-family: 'McLaren', cursive;">Step2: Make some introduction here.</label>
     			<input type="text" id="introduction" class="form-control" placeholder="Enter introduction" value="{{introduction}}"/>
-  		</div>
-		<br/>
-		<div class="form-group" name="step3">
-      <label for="exampleInputEmail1" style="font-size:24px;font-family: 'McLaren', cursive;">Step3: Set the time</label>
-   
-<div class="input-group" style="width:100%"><div style="width:100%">
-      <input id="datetime" class="controls" size="50" type="text"  placeholder="Press to set time."/>
-  <button class="btn btn-primary" onClick="setTime()" id="confirm_date">Add time</button>
-      </div>
-      </div>
-            <br/>
-				<p>(No more than 3 choices)</p>
+  		  </div>
+		
+        <br/>
+        
+		    <div class="form-group" name="step3">
+          <label for="exampleInputEmail1" style="font-size:24px;font-family: 'McLaren', cursive;">Step3: Set the time</label>
+          <div class="input-group" style="width:100%"><div style="width:100%">
+            <input id="datetime" class="controls" size="50" type="text"  placeholder="Press to set time."/>
+            <button class="btn btn-primary" onClick="setTime()" id="confirm_date">Add time</button>
+          </div>
+        </div>
+        <br/>
+        <u><b><i><p class="text-warning">(No more than 3 choices)</p></i></b></u>
 				<br/>
+        
         <input type="text" id="length" style="display:none" value="{{length}}"/>
         <input type="text" id="eventid" style="display:none" value="{{eventid}}"/>
-				<div id="timeContent">
+        
+        <div calss="border-bottom-radius" id="timeContent">
           {% for i in range (0, length) %}
-          <span> {{datelist[i]}} </span> &nbsp;&nbsp;&nbsp;<span>Number of Votes: {{ votelist[i]}}</span> <br/>
+          <div style="font-family:courier"><span>{{i+1}}. {{datelist[i]}} </span> &nbsp;&nbsp;&nbsp;<span>Number of Current Votes: {{ votelist[i]}}</span></div> <br/>
 				   {% endfor %}
         </div>
-			
-			<br/>
-		</div>
+        <br/>
+		    </div>
   			
   		<div class="form-group" name="step4">
     			<label for="exampleInputEmail1" style="font-size:24px;font-family: 'McLaren', cursive;">Step4: Set the location</label>
@@ -110,35 +116,34 @@
         </script>
     			
     		</div>
+        
         <div id="wrong" style="display:none;color:red;">wrong!</div>
 
-    <div id="commentArea" style="display:none"> 
-      <div id="commentwrong" style="display:none;color:red;">You should type something to comment!</div>
-      <label for="exampleInputEmail1">Make some comments here.</label>
-      <div class="input-group" style="width:80%">
-        <input type="text" id="commentContent" size="16" class="form-control"  placeholder="Enter comments"/>
-        <span class="input-group-btn"><button type="button" class="btn btn-default" onclick="submitComment()" align=right>Submit Comment</button></span>
-  	  </div>
-      <table class="table" id="commentTable" style="width:80%">
-        {% for comment in commentlist %}
-        <tr><td><span style="color:blue">{{comment[0]}}</span>: {{comment[1]}}</td><td>{{comment[2]}}</td></tr>
-				{% endfor %}  
-        <input id="userName" style="display:none;" value="{{user}}"/>   
-      </table>
-    </div>
+        <div id="commentArea" style="display:none"> 
+          <div id="commentwrong" style="display:none;color:red;">You should type something to comment!</div>
+          <label for="exampleInputEmail1">Make some comments here.</label>
+          <div class="input-group" style="width:80%">
+            <input type="text" id="commentContent" size="16" class="form-control"  placeholder="Enter comments"/>
+            <span class="input-group-btn"><button type="button" class="btn btn-default" onclick="submitComment()" align=right>Submit Comment</button></span>
+  	      </div>
+          
+          <table class="table" id="commentTable" style="width:80%">
+            {% for comment in commentlist %}
+            <tr><td><span style="color:blue">{{comment[0]}}</span>: {{comment[1]}}</td><td>{{comment[2]}}</td></tr>
+				    {% endfor %}  
+            <input id="userName" style="display:none;" value="{{user}}"/>   
+          </table>
+        </div>
+    
     <button type="button" class="btn btn-primary" id="submitEvent" >Submit the Event</button>
 		&nbsp;&nbsp;&nbsp;
 		<button type="button" class="btn btn-primary" onclick="{location.href='/home'}">Back to main page</button>
     &nbsp;&nbsp;&nbsp;
     <button type="button" class="btn btn-primary" id="cancelEvent" onclick="cancel()" >Cancel Event</button>           
-			
-		
-
-		
-      
-      
-        </form>
+    
+    </form>
     </div>
+    
     <table id="userTable" class="table" >
 				<thead>
 					<tr class="active">
