@@ -109,11 +109,13 @@ class ViewEvent(webapp2.RequestHandler):
 class EditEvent(webapp2.RequestHandler):
 	def get(self):
 		user = user_func.getCurrentUser(self)
+		userlist = user_func.getUserList()
 		logoutlink = users.create_logout_url('/')
 
 		template_values = {
 			'logoutlink' : logoutlink,
 			'user': user,
+			'userlist' : userlist,
       'length':0
 		}
 		template = JINJA_ENVIRONMENT.get_template('/template/initial.html')
