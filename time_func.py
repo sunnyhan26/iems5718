@@ -1,7 +1,7 @@
 from datetime import datetime
 import logging
 
-timeformat="%Y-%m-%d %H:%M"
+timeformat="%Y/%m/%d %H:%M"
 
 def str2datetime(timestr):
 	try:
@@ -21,3 +21,5 @@ def datetime2str(datetime):
 def isToday(inputdate):
 	return (inputdate.date() == datetime.today().date())
 	
+def getTimeNow():
+	return datetime.now()

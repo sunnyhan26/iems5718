@@ -1,7 +1,8 @@
 from google.appengine.ext import ndb    
 import logging
 from user_func import getUserInfo
-from time_func import str2datetime, datetime2str
+from time_func import str2datetime, datetime2str, getTimeNow, isToday
+from comment_func import getCommentList
 
 class Event(ndb.Model):
 	ownerid = ndb.StringProperty()
@@ -14,6 +15,7 @@ class Event(ndb.Model):
 	lagitude = ndb.FloatProperty()
 	longitude = ndb.FloatProperty()
 	cancelled = ndb.BooleanProperty()
+	cancelTime = ndb.DateTimeProperty()
 	createTime = ndb.DateTimeProperty(auto_now_add=True)
 	lastModifiedTime = ndb.DateTimeProperty(auto_now=True)
 
@@ -32,13 +34,19 @@ def addEvent(ownerid, name, summary, my1Time, my2Time, my3Time, location,
 	if permitted():
 		# how to verify it is really a eventid?
 		if eventid == '':
-			mykey=None
+			event = Event()
+			event.cancelled=False
 		else:
-			mykey=ndb.Key('Event', int(eventid))
-		event = Event(ownerid=ownerid, name=name, summary=summary,
-			my1Time=str2datetime(my1Time), my2Time=str2datetime(my2Time),
-			my3Time=str2datetime(my3Time), location=location,
-			lagitude=lagitude, longitude=longitude, cancelled=False, key=mykey)
+			event = ndb.Key('Event', int(eventid)).get()
+		event.ownerid = ownerid
+		event.name = name
+		event.summary = summary
+		event.my1Time=str2datetime(my1Time)
+		event.my2Time=str2datetime(my2Time)
+		event.my3Time=str2datetime(my3Time)
+		event.location=location
+		event.lagitude=lagitude
+		event.longitude=longitude
 		key = event.put()
 		logging.info('Event added with key %s' % key)
 
@@ -46,6 +54,7 @@ def cancelEvent(eventid):
 	if permitted():
 		event = getEvent(int(eventid))
 		event.cancelled = True
+		event.cancelTime = getTimeNow()
 		event.put()
 
 def voteEvent(eventid, userid, voteList):
@@ -108,7 +117,7 @@ def _fetchEventList(query):
 
 def getEventList():
 	"""
-	Return a list of event in the format of [name, location, time]
+	Return a list of event in the format of [name, location, time, eventid, cancelled]
 	"""
 	query = Event.query()
 	return _fetchEventList(query)
@@ -152,23 +161,59 @@ def isEventUdpatedToday(eventid):
 	Return a Boolean list
 	which, if true, indicates the event was upated, new comments were
 	added and new votes were added respectively
+	Return None if the event was not updated
 	"""
 	event=getEvent(int(eventid))
 	eventupdated = isToday(event.lastModifiedTime)
 
-	commentlist = getCommentList(eventid)
+	commentlist = getCommentList('%d' % eventid)
 	commentupdated = False
 	for comment in commentlist:
 		if isToday(str2datetime(comment[2])):
 			commentupdated = True
 	
-	votelist = getVoteNoList(int(eventid))
+	votelist = getVoteList(int(eventid))
 	voteupdated = False
 	for vote in votelist:
 		if isToday(vote.lastModifiedTime):
 			voteupdated = True
 
-	return [eventupdated, commentupdated, voteupdated]
+	if(event.cancelled):
+		cancelled = isToday(event.cancelTime)
+	else:
+		cancelled = False
 
+	if eventupdated or commentupdated or voteupdated or cancelled: 
+		return [eventupdated, commentupdated, voteupdated, cancelled]
+	else:
+		return None
 
+def isEventListUpdatedToday(eventlist):
+	"""
+	Check whether the list of event is updated
+	Return a list of updated event in this format:
+	[ eventid, eventname, [eventUpdated, CommentUpdated, voteUpdated, cancelled] ]
+	"""
+	updatedEventList = []
+	for event in eventlist:
+		updatelist = isEventUdpatedToday(event[3])
+		if updatelist:
+			updatedEventList.append([event[3], event[0], updatelist])
+	return updatedEventList
 
+def getUpdatedEventListByOwner(ownerUserID):
+	"""
+	Get a list of updated event by owner
+	The return format is the same as isEventListUpdatedToday
+	"""
+	eventlist = getEventListByOwner(ownerUserID)
+	updatedlist = isEventListUpdatedToday(eventlist)
+	return updatedlist
+
+def getUpdatedEventListByVoter(voterUserID):
+	"""
+	Get a list of updated event by voter 
+	The return format is the same as isEventListUpdatedToday
+	"""
+	eventlist = getEventListByVoter(voterUserID)
+	return isEventListUpdatedToday(eventlist)
