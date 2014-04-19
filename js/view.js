@@ -87,9 +87,10 @@ function joinEvent(){
           eventid:$("#eventId").val(),
         }
       });
-  jConfirm('Successfully join this event!', 'Confirmation Dialog', function() {
+  alert("Join successfully!");
+  //jConfirm('Successfully join this event!', 'Confirmation Dialog', function() {
     window.location.href="/home"; 
-  });
+  //});
   
   //jAlert('Successfully join this event!');
   //bootbox.alert("Successfully join this event!");

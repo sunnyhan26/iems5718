@@ -66,9 +66,7 @@
 		<br/>
 		<div class="form-group" name="step3">
       <label for="exampleInputEmail1" style="font-size:24px;font-family: 'McLaren', cursive;">Step3: Set the time</label>
-      
-      
-      
+   
 <div class="input-group" style="width:100%"><div style="width:100%">
       <input id="datetime" class="controls" size="50" type="text"  placeholder="Press to set time."/>
   <button class="btn btn-primary" onClick="setTime()" id="confirm_date">Add time</button>
@@ -80,7 +78,7 @@
         <input type="text" id="length" style="display:none" value="{{length}}"/>
         <input type="text" id="eventid" style="display:none" value="{{eventid}}"/>
 				<div id="timeContent">
-           {% for i in range (0, length) %}
+          {% for i in range (0, length) %}
           <span> {{datelist[i]}} </span> &nbsp;&nbsp;&nbsp;<span>Number of Votes: {{ votelist[i]}}</span> <br/>
 				   {% endfor %}
         </div>

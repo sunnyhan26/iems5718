@@ -119,9 +119,10 @@ function cancel(){
       eventid:$('#eventid').val(),
     }
   });
-      jConfirm('Your event has been cancelled!', 'Confirmation Dialog', function() {
+  alert("Cancel event!");
+      //jConfirm('Your event has been cancelled!', 'Confirmation Dialog', function() {
       window.location.href="/home"; 
-      });
+      //});
 }
 function setTime() {
 	event.preventDefault();
@@ -139,9 +140,10 @@ function setTime() {
   count++;
   flag=count-min;
   
-  if(flag>=4||length>=3)
+  if(flag>=4||length>=3){
   	$("#confirm_date").attr("disabled", "disabled");
-  	
+    $("#datetime").attr("disabled", "disabled");
+  }
 }
 
 var submitForm=function (){
@@ -206,7 +208,7 @@ var submitForm=function (){
       alert('Successfully create this event!');
       $("#submitEvent").attr("disabled", "disabled");
      // jConfirm('Successfully initial this event!', 'Confirmation Dialog', function() {
-     // window.location.href="/home"; 
+      window.location.href="/home"; 
  // });
     
    }
@@ -225,8 +227,10 @@ $(document).ready(function() {
     $("#cancelEvent").hide();
   }
   var votelength=$("#length").val();
-  if(votelength>=3)
+  if(votelength>=3){
   	$("#confirm_date").attr("disabled", "disabled");
+    $("#datetime").attr("disabled", "disabled");
+  }
 	var date = new Date;
   //date.setTime(result_from_Date_getTime);
   var seconds = date.getSeconds();
