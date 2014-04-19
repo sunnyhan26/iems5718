@@ -1,3 +1,8 @@
+
+div:empty:before {
+              content:attr("data-placeholder");
+              color:gray
+              }
 #timeContent{
   height: 100px;
   width: 500px; 
@@ -18,7 +23,7 @@
   width:15%;
   height:400;
   position:absolute;
-  text-align:right;
+  text-align:center;
   top:130px;
   right:5%;
 }

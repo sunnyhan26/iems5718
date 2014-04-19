@@ -84,7 +84,8 @@
         <input type="text" id="length" style="display:none" value="{{length}}"/>
         <input type="text" id="eventid" style="display:none" value="{{eventid}}"/>
         
-        <div calss="border-bottom-radius" id="timeContent">
+        <div calss="border-bottom-radius" id="timeContent" contentEditable="true" data-placeholder="My Placeholder String">
+
           {% for i in range (0, length) %}
           <div style="font-family:courier"><span>{{i+1}}. {{datelist[i]}} </span> &nbsp;&nbsp;&nbsp;<span>Number of Current Votes: {{ votelist[i]}}</span></div> <br/>
 				   {% endfor %}

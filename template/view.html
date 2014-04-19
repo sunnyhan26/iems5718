@@ -66,8 +66,12 @@
         <div style="display:none" id="userid">{{userid}}</div>
         <div style="font-size:20px;font-family: 'Roboto, sans-serif', cursive;" id="timeContent">
            {% for i in range (0, length) %}
-            <input type="checkbox" id="radio{{i}}Name"/> {{datelist[i]}}  &nbsp;&nbsp;&nbsp;<span>Number of Current Votes: {{ votelist[i]}}</span><br/>
-				   {% endfor %}  
+            {% if chosenlist[i]==1 %}
+              <input type="checkbox" checked="checked" id="radio{{i}}Name"/> {{datelist[i]}}  &nbsp;&nbsp;&nbsp;<span>Number of Current Votes: {{ votelist[i]}}</span><br/>
+            {% else %}
+              <input type="checkbox"  id="radio{{i}}Name"/> {{datelist[i]}}  &nbsp;&nbsp;&nbsp;<span>Number of Current Votes: {{ votelist[i]}}</span><br/>
+				    {% endif %} 
+          {% endfor %}  
 				</div>
 			  <br/>			
   		</div>
