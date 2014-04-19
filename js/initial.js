@@ -90,7 +90,7 @@ function submitComment(){
   if($('#commentContent').val()=="")
     $("#commentwrong").css('display', 'block');
   else{
-    $('#commentTable').prepend('<tr><td><span style="color:blue">'+userName+'</span>: '+comment+' </td><td>'+tempTime+'</td></tr>');
+    $('#commentTable').prepend('<tr><td><span style="color:blue">'+userName+'</span>: '+escape(comment)+' </td><td>'+tempTime+'</td></tr>');
 	  //$('#commentTable tr:first').after('<tr></tr>');
     $('#commentContent').removeAttr('value');
     $.ajax({
@@ -134,7 +134,7 @@ function setTime() {
   //showTime=timeArray[0]+" "+timeArray[1];
 	var divIdName;
  	divIdName="my"+count+"Div";
-  $('#timeContent').append(' <div id='+divIdName+'>'+timeDisplay+'<a href="#" onclick="deleteTime(\'' + divIdName + '\')">   Delete</a></div>');
+  $('#timeContent').append(' <div id='+divIdName+' style="font-family:courier">'+count+'. '+timeDisplay+'&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;  <a href="#" onclick="deleteTime(\'' + divIdName + '\')">   Delete</a></div>');
   time[(count-1)]=timeDisplay;
   alert(time[count-1]);
   count++;
@@ -227,10 +227,12 @@ $(document).ready(function() {
     $("#cancelEvent").hide();
   }
   var votelength=$("#length").val();
-  if(votelength>=3){
+  //if(votelength>=3){
+  if($("#eventid").val().length!=0){
   	$("#confirm_date").attr("disabled", "disabled");
     $("#datetime").attr("disabled", "disabled");
   }
+  //}
 	var date = new Date;
   //date.setTime(result_from_Date_getTime);
   var seconds = date.getSeconds();
