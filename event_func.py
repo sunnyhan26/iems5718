@@ -32,13 +32,19 @@ def addEvent(ownerid, name, summary, my1Time, my2Time, my3Time, location,
 	if permitted():
 		# how to verify it is really a eventid?
 		if eventid == '':
-			mykey=None
+			event = Event()
 		else:
-			mykey=ndb.Key('Event', int(eventid))
-		event = Event(ownerid=ownerid, name=name, summary=summary,
-			my1Time=str2datetime(my1Time), my2Time=str2datetime(my2Time),
-			my3Time=str2datetime(my3Time), location=location,
-			lagitude=lagitude, longitude=longitude, cancelled=False, key=mykey)
+			event = ndb.Key('Event', int(eventid)).get()
+		event.ownerid = ownerid
+		event.name = name
+		event.summary = summary
+		event.my1Time=str2datetime(my1Time)
+		event.my2Time=str2datetime(my2Time)
+		event.my3Time=str2datetime(my3Time)
+		event.location=location
+		event.lagitude=lagitude
+		event.longitude=longitude
+		event.cancelled=False
 		key = event.put()
 		logging.info('Event added with key %s' % key)
 
