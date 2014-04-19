@@ -88,8 +88,26 @@
   			
   		<div class="form-group" name="step4">
     			<label for="exampleInputEmail1" style="font-size:24px;font-family: 'McLaren', cursive;">Step4: Set the location</label>
-			<input id="pac-input" class="controls" type="text" placeholder="Enter a location"/>
+			<input id="pac-input" class="controls" type="text" placeholder="Enter a location" value="{{location}}"/>
     			<div id="map-canvas"></div>
+      <script>
+                        
+                            function initialize() {
+                                var mapOptions = {
+                                        center: new google.maps.LatLng({{lat}},{{long}}),
+                                        zoom: 17
+                                };
+                                var map = new google.maps.Map(document.getElementById('map-canvas'),mapOptions);
+ 
+                                var marker = new google.maps.Marker({
+                                    map: map,
+                                    position: new google.maps.LatLng({{lat}},{{long}}),
+                                    draggable: true
+                                });
+                             }
+                             google.maps.event.addDomListener(window, 'load', initialize);
+                            
+        </script>
     			
     		</div>
         <div id="wrong" style="display:none;color:red;">wrong!</div>
