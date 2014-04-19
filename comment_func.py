@@ -24,7 +24,7 @@ def addComment(eventid, content):
 """
 
 def getCommentList(eid):
-	que = Comment.query(Comment.eventid==eid)
+	que = Comment.query(Comment.eventid==eid).order(-Comment.time)
 	result = que.fetch()
 	commentlist=[]
 	for item in result:
