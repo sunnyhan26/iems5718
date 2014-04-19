@@ -21,3 +21,5 @@ def datetime2str(datetime):
 def isToday(inputdate):
 	return (inputdate.date() == datetime.today().date())
 	
+def getTimeNow():
+	return datetime.now()
