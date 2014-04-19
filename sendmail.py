@@ -3,48 +3,33 @@ from google.appengine.api import users
 import event_func
 import user_func
 from google.appengine.api import mail
-
-import os
-# import module for templates
-import jinja2
-# for logging message to server log
 import logging
 
-JINJA_ENVIRONMENT = jinja2.Environment(
-    loader=jinja2.FileSystemLoader(os.path.dirname(__file__)),
-    extensions=['jinja2.ext.autoescape'],
-    autoescape=True)
+senderemail="sunnuyhan26@gmail.com"
+projectid="organic-diode-554"
 
-
-class sendImmediateEmail(webapp2.RequestHandler):
-    def get(self):
-        logging.info("email test")
-        eventid=self.request.get("eventid")
-        eventname=self.request.get("eventname")
+def sendImmediateEmail(eventid,eventname):
+	logging.info("email test")
         userlist=event_func.getJoinedUserList(int(eventid))
         logging.info("sajnfewkfnw"+str(len(userlist)))
         for item in userlist:
             useremail=item.email
-            message = mail.EmailMessage(sender="sunnyhan26@gmail.com",
+            message = mail.EmailMessage(sender=senderemail,
                             subject="Your account has been approved")
 
             message.to = useremail
             message.body = """
 Dear """+ item.name + """:
 The event owner has finalized the event--"""+eventname+""". Please check by the following link and attend the event in time.
-"""+ """http://organic-diode-554.appspot.com/event/view?eventid="""+str(eid)+"""
+"""+ """http://"""+projectid+""".appspot.com/event/view?eventid="""+str(eid)+"""
 
 Enjoy the event and have a good time.
 
 Group13 Team
 """
             message.send()
-        self.response.write("The event will be informed to all participants by email")
+        #self.response.write("The event will be informed to all participants by email")
 
-
-app = webapp2.WSGIApplication([    
-    ('/email/send', sendImmediateEmail)
-    ], debug=True)
 
 
 '''every item of updatelist is [eventid, eventname, [event update, new comment, new vote, cancelled]]'''
@@ -63,7 +48,7 @@ def sendEmail(updatelist):
                     sendcontent=sendcontent+str(count)+""". """+updatecontent[index]
                     count=count+1
             sendcontent=sendcontent+"""
-Please click the link http://organic-diode-554.appspot.com/event/view?eventid="""+item[0]+""" to see details.
+Please click the link http://"""+projectid+""".appspot.com/event/view?eventid="""+item[0]+""" to see details.
             
 """
      
@@ -74,7 +59,7 @@ Please click the link http://organic-diode-554.appspot.com/event/view?eventid=""
     logging.info("sajnfewkfnw"+str(userlist[0].email))
     for item in userlist:
         useremail=item.email
-        message = mail.EmailMessage(sender="sunnyhan26@gmail.com",
+        message = mail.EmailMessage(sender=senderemail,
                             subject="Event Update Information Form Group13")
 
         message.to = useremail
