@@ -4,34 +4,31 @@
 	<meta name="viewport" content="initial-scale=1.0, user-scalable=no">
     <meta charset="utf-8">
     
-   
-    <link href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8/themes/base/jquery-ui.css" rel="stylesheet" type="text/css"/>
-    <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.6.2/jquery.min.js"></script>
-    <script src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8/jquery-ui.min.js"></script>
-  
-    <script src="/js/jquery-ui-timepicker-addon.js" type="text/javascript"></script>
-    
-     <script type="text/javascript" src="/js/jquery.js"></script>
-
-    <script src="/js/jquery.js" type="text/javascript"></script>
+    <link rel="stylesheet" type="text/css" href="/css/jquery.datetimepicker.css"/ >
+    <script src="/js/jquery.js"></script>
     <script src="/js/jquery.ui.draggable.js" type="text/javascript"></script>
     <script src="/js/jquery.alerts.js" type="text/javascript"></script>
     <link href="/css/jquery.alerts.css" rel="stylesheet" type="text/css" media="screen" />
     
   	<link rel="stylesheet" href="/css/bootstrap.css" type="text/css"/>  
   	<link rel="stylesheet" href="/css/initial.css" type="text/css" />
-      <title>Initial an event</title>
+    <title>Initial an event</title>
       
     <script src="/js/bootstrap-dialog.js"></script>
+    <link href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8/themes/base/jquery-ui.css" rel="stylesheet" type="text/css"/>
 
     <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>	
     <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCbYzvg0aGCPVxWr7x7ou13ObTbq-roTiA&sensor=false&libraries=places"></script>      
-    <link href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8/themes/base/jquery-ui.css" rel="stylesheet" type="text/css"/>
-    <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.6.2/jquery.min.js"></script>
+
     <script src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8/jquery-ui.min.js"></script>
     
-    
+
     <script type="text/javascript" src="/js/initial.js"></script>
+        <link href='http://fonts.googleapis.com/css?family=Racing+Sans+One' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.googleapis.com/css?family=Roboto' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.googleapis.com/css?family=McLaren' rel='stylesheet' type='text/css'>
+    <script src="/js/jquery.datetimepicker.js"></script>
+    
   </head>
   <body>
     <div id="fb-root"></div>
@@ -59,21 +56,25 @@
       <br/>
     	<form role="form" id="table">
 		<div class="form-group" name="step1">
-    			<label for="exampleInputEmail1">Step1: Set the event's name</label>
+<label for="exampleInputEmail1" style="font-size:24px;font-family: 'McLaren', cursive;">Step1: Set the event's name</label>
     			<input type="text" class="form-control" id="input-name" placeholder="Enter event's name" value="{{eventname}}"/>
   		</div>
                 <div class="form-group" name="step2">
-    			<label for="exampleInputEmail1">Step2: Make some introduction here.</label>
+    			<label for="exampleInputEmail1" style="font-size:24px;font-family: 'McLaren', cursive;">Step2: Make some introduction here.</label>
     			<input type="text" id="introduction" class="form-control" placeholder="Enter introduction" value="{{introduction}}"/>
   		</div>
 		<br/>
 		<div class="form-group" name="step3">
-      <label for="exampleInputEmail1">Step3: Set the time</label>
-    			<form>
-				<input id="dateSelect"/>
-        
-				<button class="btn btn-primary" onClick="setTime()" id="confirm_date">Add time</button>
-				<br/>
+      <label for="exampleInputEmail1" style="font-size:24px;font-family: 'McLaren', cursive;">Step3: Set the time</label>
+      
+      
+      
+<div class="input-group" style="width:100%"><div style="width:100%">
+      <input id="datetime" class="controls" size="50" type="text"  placeholder="Press to set time."/>
+  <button class="btn btn-primary" onClick="setTime()" id="confirm_date">Add time</button>
+      </div>
+      </div>
+            <br/>
 				<p>(No more than 3 choices)</p>
 				<br/>
         <input type="text" id="length" style="display:none" value="{{length}}"/>
@@ -83,12 +84,12 @@
           <span> {{datelist[i]}} </span> &nbsp;&nbsp;&nbsp;<span>Number of Votes: {{ votelist[i]}}</span> <br/>
 				   {% endfor %}
         </div>
-			</form>
+			
 			<br/>
 		</div>
   			
   		<div class="form-group" name="step4">
-    			<label for="exampleInputEmail1">Step4: Set the location</label>
+    			<label for="exampleInputEmail1" style="font-size:24px;font-family: 'McLaren', cursive;">Step4: Set the location</label>
 			<input id="pac-input" class="controls" type="text" placeholder="Enter a location"/>
     			<div id="map-canvas"></div>
     			
@@ -115,11 +116,12 @@
     &nbsp;&nbsp;&nbsp;
     <button type="button" class="btn btn-primary" id="cancelEvent" onclick="cancel()" >Cancel Event</button>           
 			
-		</form>
+		
 
 		
       
       
+        </form>
     </div>
     <table id="userTable" class="table" >
 				<thead>
@@ -136,4 +138,5 @@
     <hr>
     <footer align=center>© 2014 IEMS5718-Group13. All rights reserved.</footer>
     </body>
+      
 </html>

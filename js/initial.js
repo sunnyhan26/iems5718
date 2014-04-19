@@ -5,6 +5,7 @@ var wrong=[0,0,0,0];
 var flag;
 var min=0;
 //var initialeventid=$('#eventid').val();
+
 function initialize() {
   var mapOptions = {
     center: new google.maps.LatLng(22.413533,114.21031),
@@ -124,15 +125,17 @@ function cancel(){
 }
 function setTime() {
 	event.preventDefault();
-	var content=$('#selector').val();
-  var timeArray=content.split("T");
+  var timeDisplay=$('#datetime').val();
+  //alert(test);
+	//var content=$('#selector').val();
+  //var timeArray=content.split("T");
   var length=$('#length').val();
-  showTime=timeArray[0]+" "+timeArray[1];
+  //showTime=timeArray[0]+" "+timeArray[1];
 	var divIdName;
  	divIdName="my"+count+"Div";
-  $('#timeContent').append(' <div id='+divIdName+'>'+showTime+'<a href="#" onclick="deleteTime(\'' + divIdName + '\')">   Delete</a></div>');
-  time[(count-1)]=showTime;
-  //alert(time[count-1]);
+  $('#timeContent').append(' <div id='+divIdName+'>'+timeDisplay+'<a href="#" onclick="deleteTime(\'' + divIdName + '\')">   Delete</a></div>');
+  time[(count-1)]=timeDisplay;
+  alert(time[count-1]);
   count++;
   flag=count-min;
   
@@ -199,11 +202,12 @@ var submitForm=function (){
           eventid:$('#eventid').val(),
         }
       });
-      jAlert('Successfully create this event!');
+      
+      alert('Successfully create this event!');
       $("#submitEvent").attr("disabled", "disabled");
-      jConfirm('Successfully initial this event!', 'Confirmation Dialog', function() {
-      window.location.href="/home"; 
-  });
+     // jConfirm('Successfully initial this event!', 'Confirmation Dialog', function() {
+     // window.location.href="/home"; 
+ // });
     
    }
  
@@ -236,12 +240,13 @@ $(document).ready(function() {
     minutes="0"+minutes;
   if(hour<10)
     hour="0"+hour;
-  
-
   today = year+"-"+month+"-"+day+"T"+hour+":"+minutes;
  // alert(today);
-	$('#selector').val(today);
+	//$('#selector').val(today);
   google.maps.event.addDomListener(window, 'load', initialize);
   $('#submitEvent').click(submitForm);
-	$('#dateSelect').datetimepicker();
+  //$('#dateSelect').datetimepicker();
+  var $j = jQuery.noConflict();
+  $j("#datetime").datetimepicker();  
+//<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.6.2/jquery.min.js"></script>
 });
