@@ -1,7 +1,7 @@
 from datetime import datetime
 import logging
 
-timeformat="%Y-%m-%d %H:%M"
+timeformat="%Y/%m/%d %H:%M"
 
 def str2datetime(timestr):
 	try:
